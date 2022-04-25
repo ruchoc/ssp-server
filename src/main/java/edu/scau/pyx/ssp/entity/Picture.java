@@ -1,22 +1,22 @@
 package edu.scau.pyx.ssp.entity;
 
 public class Picture {
-    private int id;
+    private long id;
     private String url;
 
     public Picture() {
     }
 
-    public Picture(int id, String url) {
+    public Picture(long id, String url) {
         this.id = id;
         this.url = url;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

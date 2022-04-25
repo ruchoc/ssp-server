@@ -3,24 +3,24 @@ package edu.scau.pyx.ssp.entity;
 import java.util.Date;
 
 public class Reply {
-    private int id;
+    private long id;
     private String content;
     private Date time;
 
     public Reply() {
     }
 
-    public Reply(int id, String content, Date time) {
+    public Reply(long id, String content, Date time) {
         this.id = id;
         this.content = content;
         this.time = time;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

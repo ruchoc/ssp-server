@@ -1,22 +1,22 @@
 package edu.scau.pyx.ssp.entity;
 
 public class Share {
-    private int id;
+    private long id;
     private String content;
 
     public Share() {
     }
 
-    public Share(int id, String content) {
+    public Share(long id, String content) {
         this.id = id;
         this.content = content;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

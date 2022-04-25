@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.scau.pyx.ssp.mapper.RoleMapper">
+    <select id="getRolesByUserName" resultType="edu.scau.pyx.ssp.entity.Role">
+        SELECT
+            T_ROLE.ID AS id,
+            T_ROLE.NAME AS name
+        FROM
+            T_USER,T_USER_ROLE,T_ROLE
+        WHERE
+            T_USER.ID=T_USER_ROLE.USER_ID AND T_ROLE.ID=T_USER_ROLE.ROLE_ID AND T_USER.NAME=#{username};
+    </select>
+</mapper>

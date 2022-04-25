@@ -1,22 +1,22 @@
 package edu.scau.pyx.ssp.entity;
 
 public class Administrator {
-    private int id;
+    private long id;
     private String password;
 
     public Administrator() {
     }
 
-    public Administrator(int id, String password) {
+    public Administrator(long id, String password) {
         this.id = id;
         this.password = password;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
