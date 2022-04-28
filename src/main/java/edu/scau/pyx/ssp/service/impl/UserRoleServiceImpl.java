@@ -6,9 +6,11 @@ import edu.scau.pyx.ssp.mapper.RoleMapper;
 import edu.scau.pyx.ssp.mapper.UserMapper;
 import edu.scau.pyx.ssp.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserRoleServiceImpl implements UserRoleService {
 
     @Autowired

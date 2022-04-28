@@ -13,10 +13,47 @@
         WHERE
             NAME=#{username};
     </select>
-
-    <insert id="insertUser">
+    <select id="getUser" resultType="edu.scau.pyx.ssp.entity.SystemUser">
+        SELECT
+            ID AS id,
+            NAME AS name,
+            PASSWORD AS password,
+            LOCKED AS locked
+        FROM
+            T_USER
+        WHERE
+            ID=#{userId};
+    </select>
+    <insert id="insertUser" parameterType="edu.scau.pyx.ssp.entity.SystemUser" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         INSERT INTO T_USER ( `NAME`, `PASSWORD` )
         VALUES
             ( #{name}, #{password} );
     </insert>
+    <update id="updateUsername">
+        UPDATE T_USER
+        SET `NAME` = #{username}
+        WHERE ID = #{userId};
+    </update>
+    <update id="updateUserPassword">
+        UPDATE T_USER
+        SET `PASSWORD` = #{password}
+        WHERE ID = #{userId};
+    </update>
+    <update id="updateUserLocked">
+        UPDATE T_USER
+        SET LOCKED = #{isLocked}
+        WHERE ID = #{userId};
+    </update>
+    <select id="searchUser">
+        SELECT
+            ID AS id,
+            NAME AS name,
+            PASSWORD AS password,
+            LOCKED AS locked
+        FROM
+            T_USER
+        WHERE
+            ID=#{userId};
+
+    </select>
 </mapper>
