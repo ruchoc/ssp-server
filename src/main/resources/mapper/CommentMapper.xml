@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.scau.pyx.ssp.mapper.CommentMapper">
+    <insert id="insertComment">
+        INSERT INTO T_COMMENT( CONTENT,USER_ID,SHARE_ID )
+        VALUES ( #{content},#{userId},#{shareId} );
+    </insert>
+    <select id="getComment" resultType="edu.scau.pyx.ssp.entity.ShareListInfo">
+        SELECT C.ID AS id, U.`NAME` AS username, I.AVATAR_URL AS avatarUrl, C.CONTENT AS content, C.TIME AS time
+        FROM T_COMMENT AS C,T_USER AS U,T_USER_INFO AS I
+        WHERE C.USER_ID=U.ID AND U.ID = I.USER_ID AND C.SHARE_ID = #{shareId}
+        LIMIT #{begin},#{length};
+    </select>
+</mapper>

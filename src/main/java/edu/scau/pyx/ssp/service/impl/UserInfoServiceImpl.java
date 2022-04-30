@@ -1,5 +1,6 @@
 package edu.scau.pyx.ssp.service.impl;
 
+import edu.scau.pyx.ssp.entity.SystemUser;
 import edu.scau.pyx.ssp.entity.UserInfo;
 import edu.scau.pyx.ssp.mapper.UserInfoMapper;
 import edu.scau.pyx.ssp.service.UserInfoService;

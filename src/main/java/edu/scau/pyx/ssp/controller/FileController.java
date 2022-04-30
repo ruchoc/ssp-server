@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/file")
@@ -16,7 +17,7 @@ public class FileController {
     private FileService fileService;
 
     @RequestMapping(value = "/uoloadpic")
-    public boolean upload(@RequestParam(value = "pic")MultipartFile multipartFile, @RequestParam(value = "shareId")long shareId){
-        return fileService.uploadPicture(multipartFile, shareId);
+    public List<String> upload(@RequestParam(value = "pic")MultipartFile[] multipartFiles, @RequestParam(value = "shareId")long shareId){
+        return fileService.uploadPicture(multipartFiles, shareId);
     }
 }

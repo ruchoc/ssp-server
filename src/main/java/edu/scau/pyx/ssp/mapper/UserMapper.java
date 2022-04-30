@@ -11,13 +11,15 @@ public interface UserMapper {
 
     public SystemUser getUser(long userId);
 
-    public long insertUser(SystemUser user);
+    public boolean insertUser(SystemUser user);
 
     public boolean updateUsername(long userId, String username);
 
     public boolean updateUserPassword(long userId, String password);
 
     public boolean updateUserLocked(long userId, boolean isLocked);
+
+    public long getUserId(String username);
 
     public List<SystemUser> searchUser(String username);
 }

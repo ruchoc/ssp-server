@@ -14,7 +14,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public long register(SystemUser systemUser) {
+    public boolean register(SystemUser systemUser) {
         encryptPassword(systemUser);
         return userMapper.insertUser(systemUser);
     }
@@ -38,6 +38,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateUserLocked(long userId, boolean isLocked) {
         return userMapper.updateUserLocked(userId, isLocked);
+    }
+
+    @Override
+    public long getUserId(String username){
+        return userMapper.getUserId(username);
     }
 
 

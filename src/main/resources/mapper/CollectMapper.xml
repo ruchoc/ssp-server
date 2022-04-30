@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.scau.pyx.ssp.mapper.CollectMapper">
+    <insert id="insert">
+        INSERT INTO T_COLLECT( USER_ID,SHARE_ID )
+        VALUES ( #{userId},#{shareId} );
+    </insert>
+    <select id="getCollectList" resultType="edu.scau.pyx.ssp.entity.Collect">
+        SELECT
+            USER_ID AS userId,
+            SHARE_ID AS shareId,
+            COLLECT_TIME AS collectTime
+        FROM T_COLLECT
+        WHERE USER_ID = #{userId};
+    </select>
+</mapper>

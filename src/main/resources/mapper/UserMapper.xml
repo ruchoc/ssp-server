@@ -24,7 +24,12 @@
         WHERE
             ID=#{userId};
     </select>
-    <insert id="insertUser" parameterType="edu.scau.pyx.ssp.entity.SystemUser" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    <select id="getUserId" resultType="long">
+        SELECT ID
+        FROM T_USER
+        WHERE NAME=#{username};
+    </select>
+    <insert id="insertUser">
         INSERT INTO T_USER ( `NAME`, `PASSWORD` )
         VALUES
             ( #{name}, #{password} );
@@ -54,6 +59,5 @@
             T_USER
         WHERE
             ID=#{userId};
-
     </select>
 </mapper>

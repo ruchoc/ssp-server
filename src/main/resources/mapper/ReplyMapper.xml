@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.scau.pyx.ssp.mapper.ReplyMapper">
+    <insert id="insertReply">
+        INSERT INTO T_REPLY( CONTENT,SEND_USER_ID,ACCEPT_USER_ID,COMMENT_ID )
+        VALUES ( #{content},#{sendUserId},#{acceptUserId},#{commentId} );
+    </insert>
+    <select id="getReply" resultType="edu.scau.pyx.ssp.entity.ShareListInfo">
+        SELECT R.ID AS id,U1,`NAME` AS sendUserName,U2.`NAME` AS acceptUserName,R.CONTENT AS content,R.TIME AS time
+        FROM T_USER AS U1,T_REPLY AS R,T_USER AS U2
+        WHERE U1.ID=R.SEND_USER_ID AND R.ACCEPT_USER_ID=U2.ID AND R.COMMENT_ID=#{commentId};
+    </select>
+</mapper>

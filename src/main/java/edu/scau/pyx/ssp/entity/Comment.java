@@ -6,14 +6,18 @@ public class Comment {
     private long id;
     private String content;
     private Date time;
+    private long userId;
+    private long shareId;
 
     public Comment() {
     }
 
-    public Comment(long id, String content, Date time) {
+    public Comment(long id, String content, Date time, long userId, long shareId) {
         this.id = id;
         this.content = content;
         this.time = time;
+        this.userId = userId;
+        this.shareId = shareId;
     }
 
     public long getId() {
@@ -38,5 +42,21 @@ public class Comment {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public long getShareId() {
+        return shareId;
+    }
+
+    public void setShareId(long shareId) {
+        this.shareId = shareId;
     }
 }

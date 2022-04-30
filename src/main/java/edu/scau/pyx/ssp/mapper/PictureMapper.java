@@ -6,4 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface PictureMapper {
     public Picture getPicture(String URL);
+
+    public boolean insertPicture(String URL, long shareId);
 }

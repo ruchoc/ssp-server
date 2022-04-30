@@ -24,7 +24,8 @@ public class UserController {
 
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public boolean registerUser(@RequestBody SystemUser user){
-        return userInfoService.insertUserInfo(userService.register(user));
+        userService.register(user);
+        return userInfoService.insertUserInfo(userService.getUserId(user.getName()));
     }
 
     @RequestMapping(value = "/getuser",method = RequestMethod.GET)
@@ -50,10 +51,5 @@ public class UserController {
     @RequestMapping(value = "/updateuserinfo",method = RequestMethod.POST)
     public boolean updateUserInfo(@RequestBody UserInfo userInfo){
         return userInfoService.updateUserInfo(userInfo);
-    }
-
-    @RequestMapping(value = "/follow", method = RequestMethod.POST)
-    public boolean follow(@RequestBody Follow follow){
-        return followService.insertFollow(follow.getFromUserId(),follow.getToUserId());
     }
 }

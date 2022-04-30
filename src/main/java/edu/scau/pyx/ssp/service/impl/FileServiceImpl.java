@@ -8,7 +8,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 @Service
 public class FileServiceImpl implements FileService {
@@ -18,33 +21,24 @@ public class FileServiceImpl implements FileService {
     private static final String picturePath = "/picture";
     private static final int pictureRandomFileNameLength = 5;
     @Override
-    public boolean uploadPicture(MultipartFile multipartFile, long shareId) {
-        try{
-            //获取随机文件名且判重
-            String suffix = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf('.'));
-            String randomFileName = getRandomString(pictureRandomFileNameLength)+suffix;
-            String randomURL = picturePath+randomFileName;
-            while(pictureService.getPicture(randomURL)!=null){
-                randomFileName = getRandomString(pictureRandomFileNameLength)+suffix;
-                randomURL = picturePath+randomFileName;
+    public List<String> uploadPicture(MultipartFile[] multipartFiles, long shareId) {
+        List<String> messages = new ArrayList<String>();
+        for(MultipartFile file : multipartFiles){
+            if(!file.isEmpty()){
+                String orgName = file.getOriginalFilename();
+                String suffix = orgName.substring(orgName.lastIndexOf('.'));
+                String randomFileName = UUID.randomUUID().toString().toUpperCase()+suffix;
+                String randomURL = picturePath+randomFileName;
+                try{
+                    file.transferTo(new File(picturePath,randomFileName));
+                    pictureService.uploadPicture(randomURL, shareId);
+                    messages.add(orgName+"上传成功");
+                } catch (IllegalStateException | IOException e){
+                    e.printStackTrace();
+                    messages.add(orgName + "上传失败" + e.getMessage());
+                }
             }
-
-            File file = new File(randomURL);
-            multipartFile.transferTo(file);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        return true;
-    }
-
-    private String getRandomString(int length){
-        String str="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        Random random=new Random();
-        StringBuffer sb=new StringBuffer();
-        for(int i=0;i<length;i++){
-            int number=random.nextInt(62);
-            sb.append(str.charAt(number));
-        }
-        return sb.toString();
+        return messages;
     }
 }

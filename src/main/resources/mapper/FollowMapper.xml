@@ -6,4 +6,20 @@
         INSERT INTO T_FOLLOW( FROM_USER_ID,TO_USER_ID )
         VALUES ( #{fromUserId},#{toUserId} );
     </insert>
+    <select id="getFollowingUser" resultType="edu.scau.pyx.ssp.entity.UserListInfo">
+        SELECT
+            U.ID AS userId,
+            U.`NAME` AS username,
+            I.AVATAR_URL AS avatarUrl
+        FROM T_USER AS U,T_USER_INFO AS I,T_FOLLOW AS F
+        WHERE U.ID=I.USER_ID AND U.ID=F.TO_USER_ID AND F.FROM_USER_ID=#{userId};
+    </select>
+    <select id="getFans" resultType="edu.scau.pyx.ssp.entity.UserListInfo">
+        SELECT
+            U.ID AS userId,
+            U.`NAME` AS username,
+            I.AVATAR_URL AS avatarUrl
+        FROM T_USER AS U,T_USER_INFO AS I,T_FOLLOW AS F
+        WHERE U.ID=I.USER_ID AND U.ID=F.FROM_USER_ID AND F.TO_USER_ID=#{userId};
+    </select>
 </mapper>

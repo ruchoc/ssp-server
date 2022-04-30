@@ -9,4 +9,8 @@
         FROM T_PICTURE
         WHERE URL = #{url};
     </select>
+    <insert id="insertPicture">
+        INSERT INTO T_PICTURE( URL,SHARE_ID )
+        VALUES ( #{URL},#{shareId} );
+    </insert>
 </mapper>
