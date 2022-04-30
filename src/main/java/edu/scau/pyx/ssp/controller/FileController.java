@@ -20,4 +20,9 @@ public class FileController {
     public List<String> upload(@RequestParam(value = "pic")MultipartFile[] multipartFiles, @RequestParam(value = "shareId")long shareId){
         return fileService.uploadPicture(multipartFiles, shareId);
     }
+
+    @RequestMapping(value = "/uoloadavatar")
+    public boolean upload(@RequestParam(value = "avatar")MultipartFile multipartFile, @RequestParam(value = "userId")long userId){
+        return fileService.uploadAvatar(multipartFile, userId);
+    }
 }

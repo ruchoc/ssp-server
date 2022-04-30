@@ -8,4 +8,6 @@ public interface UserInfoService {
     public UserInfo getUserInfo(long userId);
 
     public boolean updateUserInfo(UserInfo userInfo);
+
+    public boolean uploadAvatar(String randomURL, long userId);
 }

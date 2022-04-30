@@ -1,11 +1,14 @@
 package edu.scau.pyx.ssp.service.impl;
 
 import edu.scau.pyx.ssp.entity.SystemUser;
+import edu.scau.pyx.ssp.entity.UserListInfo;
 import edu.scau.pyx.ssp.mapper.UserMapper;
 import edu.scau.pyx.ssp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -43,6 +46,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public long getUserId(String username){
         return userMapper.getUserId(username);
+    }
+
+    @Override
+    public List<UserListInfo> searchUser(String username) {
+        StringBuffer sb = new StringBuffer("%");
+        for(int i=0;i<username.length();i++){
+            sb.append(username.charAt(i));
+            sb.append('%');
+        }
+        username = sb.toString();
+        return userMapper.searchUser(username);
     }
 
 

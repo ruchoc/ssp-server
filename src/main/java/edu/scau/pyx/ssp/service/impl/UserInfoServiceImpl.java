@@ -27,4 +27,9 @@ public class UserInfoServiceImpl implements UserInfoService {
         return userInfoMapper.updateUserInfo(userInfo);
     }
 
+    @Override
+    public boolean uploadAvatar(String randomURL, long userId) {
+        return userInfoMapper.uploadAvatar(randomURL,userId);
+    }
+
 }

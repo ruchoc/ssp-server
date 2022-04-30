@@ -3,11 +3,14 @@ package edu.scau.pyx.ssp.controller;
 import edu.scau.pyx.ssp.entity.Follow;
 import edu.scau.pyx.ssp.entity.SystemUser;
 import edu.scau.pyx.ssp.entity.UserInfo;
+import edu.scau.pyx.ssp.entity.UserListInfo;
 import edu.scau.pyx.ssp.service.FollowService;
 import edu.scau.pyx.ssp.service.UserInfoService;
 import edu.scau.pyx.ssp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -51,5 +54,10 @@ public class UserController {
     @RequestMapping(value = "/updateuserinfo",method = RequestMethod.POST)
     public boolean updateUserInfo(@RequestBody UserInfo userInfo){
         return userInfoService.updateUserInfo(userInfo);
+    }
+
+    @RequestMapping(value = "/searchuser" ,method = RequestMethod.GET)
+    public List<UserListInfo> searchUser(@RequestParam String username){
+        return userService.searchUser(username);
     }
 }
