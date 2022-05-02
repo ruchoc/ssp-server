@@ -22,8 +22,8 @@ public class FileServiceImpl implements FileService {
     @Autowired
     private UserInfoService userInfoService;
 
-    private static final String picturePath = "/picture";
-    private static final String avatarPath = "/avatar";
+    private static final String picturePath = "/resource/picture/";
+    private static final String avatarPath = "/resource/avatar/";
     private static final int pictureRandomFileNameLength = 5;
     @Override
     public List<String> uploadPicture(MultipartFile[] multipartFiles, long shareId) {
@@ -35,7 +35,11 @@ public class FileServiceImpl implements FileService {
                 String randomFileName = UUID.randomUUID().toString().toUpperCase()+suffix;
                 String randomURL = picturePath+randomFileName;
                 try{
-                    file.transferTo(new File(picturePath,randomFileName));
+                    File newFile = new File(System.getProperty("user.dir")+picturePath,randomFileName);
+                    if (!newFile.getParentFile().exists()) {
+                        newFile.getParentFile().mkdirs();
+                    }
+                    file.transferTo(newFile);
                     pictureService.uploadPicture(randomURL, shareId);
                     messages.add(orgName+"上传成功");
                 } catch (IllegalStateException | IOException e){
@@ -56,7 +60,11 @@ public class FileServiceImpl implements FileService {
             String randomFileName = UUID.randomUUID().toString().toUpperCase()+suffix;
             String randomURL = avatarPath+randomFileName;
             try{
-                multipartFile.transferTo(new File(avatarPath,randomFileName));
+                File newFile = new File(System.getProperty("user.dir")+avatarPath,randomFileName);
+                if (!newFile.getParentFile().exists()) {
+                    newFile.getParentFile().mkdirs();
+                }
+                multipartFile.transferTo(newFile);
                 userInfoService.uploadAvatar(randomURL, userId);
                 result = true;
             } catch (IllegalStateException | IOException e){
