@@ -10,17 +10,23 @@ public class ShareListInfo {
     private Date time;
     private String content;
     private List<Picture> pictureList;
+    private long likeNum;
+    private long collectNum;
+    private long commentNum;
 
     public ShareListInfo() {
     }
 
-    public ShareListInfo(long id, String username, String userAvatarUrl, Date time, String content, List<Picture> pictureList) {
+    public ShareListInfo(long id, String username, String userAvatarUrl, Date time, String content, List<Picture> pictureList, long likeNum, long collectNum, long commentNum) {
         this.id = id;
         this.username = username;
         this.userAvatarUrl = userAvatarUrl;
         this.time = time;
         this.content = content;
         this.pictureList = pictureList;
+        this.likeNum = likeNum;
+        this.collectNum = collectNum;
+        this.commentNum = commentNum;
     }
 
     public long getId() {
@@ -69,5 +75,29 @@ public class ShareListInfo {
 
     public void setPictureList(List<Picture> pictureList) {
         this.pictureList = pictureList;
+    }
+
+    public long getLikeNum() {
+        return likeNum;
+    }
+
+    public void setLikeNum(long likeNum) {
+        this.likeNum = likeNum;
+    }
+
+    public long getCollectNum() {
+        return collectNum;
+    }
+
+    public void setCollectNum(long collectNum) {
+        this.collectNum = collectNum;
+    }
+
+    public long getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(long commentNum) {
+        this.commentNum = commentNum;
     }
 }

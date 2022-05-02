@@ -19,4 +19,8 @@ public interface ShareService {
     public List<ShareListInfo> searchShare(String content);
 
     public boolean updateContent(Share share);
+
+    List<ShareListInfo> getNewestShare(long begin, long length);
+
+    List<ShareListInfo> getFavoriteShare(long begin, long length);
 }

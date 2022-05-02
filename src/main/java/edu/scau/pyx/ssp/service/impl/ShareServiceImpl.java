@@ -2,6 +2,7 @@ package edu.scau.pyx.ssp.service.impl;
 
 import edu.scau.pyx.ssp.entity.Share;
 import edu.scau.pyx.ssp.entity.ShareListInfo;
+import edu.scau.pyx.ssp.mapper.SensitiveKeywordMapper;
 import edu.scau.pyx.ssp.mapper.ShareMapper;
 import edu.scau.pyx.ssp.service.ShareService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,17 @@ import java.util.List;
 public class ShareServiceImpl implements ShareService {
     @Autowired
     private ShareMapper shareMapper;
+    @Autowired
+    private SensitiveKeywordMapper sensitiveKeywordMapper;
 
     @Override
     public long publish(Share share) {
-        return shareMapper.insertShare(share);
+        long matchNum = sensitiveKeywordMapper.match(share.getContent());
+        if(matchNum!=0){
+            return -1;
+        }
+        shareMapper.insertShare(share);
+        return share.getId();
     }
 
     @Override
@@ -65,5 +73,15 @@ public class ShareServiceImpl implements ShareService {
     @Override
     public boolean updateContent(Share share) {
         return shareMapper.updateContent(share.getContent(),share.getId());
+    }
+
+    @Override
+    public List<ShareListInfo> getNewestShare(long begin, long length) {
+        return shareMapper.getNewestShare(begin,length);
+    }
+
+    @Override
+    public List<ShareListInfo> getFavoriteShare(long begin, long length) {
+        return shareMapper.getFavoriteShare(begin,length);
     }
 }

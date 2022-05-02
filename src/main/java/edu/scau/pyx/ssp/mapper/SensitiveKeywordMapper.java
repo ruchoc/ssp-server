@@ -8,4 +8,6 @@ public interface SensitiveKeywordMapper {
     public boolean insertSensitiveKeyword(String keyword);
 
     public boolean deleteSensitiveKeyword(long sensitiveKeywordId);
+
+    public long match(String content);
 }

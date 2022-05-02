@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.scau.pyx.ssp.mapper.UserInfoMapper">
     <insert id="insertUserInfo">
-        INSERT INTO T_USER_INFO ( USER_ID,AVATAR_URL )
+        INSERT INTO T_USER_INFO ( USER_ID )
         VALUES
-            ( #{userId},'NULL' );
+            ( #{userId} );
     </insert>
     <select id="getUserInfo" resultType="edu.scau.pyx.ssp.entity.UserInfo">
         SELECT

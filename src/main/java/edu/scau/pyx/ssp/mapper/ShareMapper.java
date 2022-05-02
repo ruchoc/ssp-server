@@ -24,4 +24,14 @@ public interface ShareMapper {
     public List<ShareListInfo> searchShare(String content);
 
     boolean updateContent(String content, long id);
+
+    public List<ShareListInfo> getNewestShare(long begin, long length);
+
+    public List<ShareListInfo> getFavoriteShare(long begin, long length);
+
+    public boolean updateLikeNum(long id);
+
+    public boolean updateCollectNum(long id);
+
+    public boolean updateCommentNum(long id);
 }

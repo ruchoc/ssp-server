@@ -10,6 +10,7 @@ import edu.scau.pyx.ssp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -31,6 +32,11 @@ public class UserController {
         return userInfoService.insertUserInfo(userService.getUserId(user.getName()));
     }
 
+    @RequestMapping(value = "/signin",method = RequestMethod.POST)
+    public boolean signIn(@RequestBody SystemUser user, HttpSession session){
+        return userService.signIn(user,session);
+    }
+
     @RequestMapping(value = "/getuser",method = RequestMethod.GET)
     public SystemUser getUser(@RequestParam(value = "userId", required = true) long userId){
         return userService.getUser(userId);
@@ -41,18 +47,29 @@ public class UserController {
         return userInfoService.getUserInfo(userId);
     }
 
+    @RequestMapping(value = "/getcurrentuser",method = RequestMethod.GET)
+    public SystemUser getUser(HttpSession session){
+        return userService.getUser(((SystemUser) session.getAttribute("user")).getId());
+    }
+
+    @RequestMapping(value = "/getcurrentuserinfo",method = RequestMethod.GET)
+    public UserInfo getUserInfo(HttpSession session){
+        return userInfoService.getUserInfo(((SystemUser) session.getAttribute("user")).getId());
+    }
+
     @RequestMapping(value = "/updateusername",method = RequestMethod.POST)
-    public boolean updateUsername(@RequestBody SystemUser user){
-        return userService.updateUsername(user.getId(), user.getName());
+    public boolean updateUsername(@RequestBody SystemUser user,HttpSession session){
+        return userService.updateUsername(((SystemUser)session.getAttribute("user")).getId(), user.getName());
     }
 
     @RequestMapping(value = "/updateuserpassword",method = RequestMethod.POST)
-    public boolean updateUserPassword(@RequestBody SystemUser user){
-        return userService.updateUserPassword(user.getId(), user.getPassword());
+    public boolean updateUserPassword(@RequestBody SystemUser user,HttpSession session){
+        return userService.updateUserPassword(((SystemUser)session.getAttribute("user")).getId(), user.getPassword());
     }
 
     @RequestMapping(value = "/updateuserinfo",method = RequestMethod.POST)
-    public boolean updateUserInfo(@RequestBody UserInfo userInfo){
+    public boolean updateUserInfo(@RequestBody UserInfo userInfo,HttpSession session){
+        userInfo.setUserId(((SystemUser)session.getAttribute("user")).getId());
         return userInfoService.updateUserInfo(userInfo);
     }
 

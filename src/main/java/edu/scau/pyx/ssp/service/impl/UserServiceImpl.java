@@ -2,13 +2,12 @@ package edu.scau.pyx.ssp.service.impl;
 
 import edu.scau.pyx.ssp.entity.SystemUser;
 import edu.scau.pyx.ssp.entity.UserListInfo;
-import edu.scau.pyx.ssp.mapper.RoleMapper;
 import edu.scau.pyx.ssp.mapper.UserMapper;
 import edu.scau.pyx.ssp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -16,14 +15,24 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
-    @Autowired
-    private RoleMapper roleMapper;
 
     @Override
     public boolean register(SystemUser systemUser) {
-        encryptPassword(systemUser);
-        userMapper.insertUser(systemUser);
-        return roleMapper.insertUserAndRole(userMapper.getUserId(systemUser.getName()));
+        return userMapper.insertUser(systemUser);
+    }
+
+    @Override
+    public boolean signIn(SystemUser systemUser, HttpSession session) {
+        SystemUser matchUser = userMapper.getUserByUserName(systemUser.getName());
+        if(matchUser==null){
+            return false;
+        }
+        if(systemUser.getPassword().equals(matchUser.getPassword())==true){
+            session.setAttribute("user",matchUser);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -38,7 +47,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updateUserPassword(long userId, String password) {
-        password = new BCryptPasswordEncoder().encode(password);
         return userMapper.updateUserPassword(userId, password);
     }
 
@@ -63,10 +71,8 @@ public class UserServiceImpl implements UserService {
         return userMapper.searchUser(username);
     }
 
-
-    private void encryptPassword(SystemUser systemUser){
-        String password = systemUser.getPassword();
-        password = new BCryptPasswordEncoder().encode(password);
-        systemUser.setPassword(password);
+    @Override
+    public SystemUser getUserByUsername(String username) {
+        return userMapper.getUserByUserName(username);
     }
 }

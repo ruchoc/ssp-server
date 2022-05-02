@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -19,17 +20,18 @@ public class FollowController {
     private FollowService followService;
 
     @RequestMapping(value = "/follow", method = RequestMethod.POST)
-    public boolean follow(@RequestBody Follow follow){
+    public boolean follow(@RequestBody Follow follow, HttpSession session){
+        follow.setFromUserId(((SystemUser)session.getAttribute("user")).getId());
         return followService.insertFollow(follow.getFromUserId(),follow.getToUserId());
     }
 
     @RequestMapping(value = "/getfollowinguser", method = RequestMethod.GET)
-    public List<UserListInfo> getFollowingUser(long userId){
-        return followService.getFollowingUser(userId);
+    public List<UserListInfo> getFollowingUser(HttpSession session){
+        return followService.getFollowingUser(((SystemUser)session.getAttribute("user")).getId());
     }
 
     @RequestMapping(value = "/getfans", method = RequestMethod.GET)
-    public List<UserListInfo> getFans(long userId){
-        return followService.getFans(userId);
+    public List<UserListInfo> getFans(HttpSession session){
+        return followService.getFans(((SystemUser)session.getAttribute("user")).getId());
     }
 }

@@ -12,6 +12,10 @@ public class SensitiveKeywordServiceImpl implements SensitiveKeywordService {
 
     @Override
     public boolean insertSensitiveKeyword(String keyword) {
+        StringBuffer sb = new StringBuffer("%");
+        sb.append(keyword);
+        sb.append("%");
+        keyword = sb.toString();
         return sensitiveKeywordMapper.insertSensitiveKeyword(keyword);
     }
 

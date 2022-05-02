@@ -2,12 +2,14 @@ package edu.scau.pyx.ssp.controller;
 
 import edu.scau.pyx.ssp.entity.Share;
 import edu.scau.pyx.ssp.entity.ShareListInfo;
+import edu.scau.pyx.ssp.entity.SystemUser;
 import edu.scau.pyx.ssp.service.PictureService;
 import edu.scau.pyx.ssp.service.ShareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -20,7 +22,8 @@ public class ShareController {
     private PictureService pictureService;
 
     @RequestMapping(value = "/publish", method = RequestMethod.POST)
-    public long publish(@RequestBody Share share){
+    public long publish(@RequestBody Share share, HttpSession session){
+        share.setUserId(((SystemUser)session.getAttribute("user")).getId());
         return shareService.publish(share);
     }
 
@@ -35,8 +38,18 @@ public class ShareController {
     }
 
     @RequestMapping(value = "/getmysharelist", method = RequestMethod.GET)
-    public List<ShareListInfo> getMyShareList(@RequestParam long userId, @RequestParam long begin, @RequestParam long length){
-        return shareService.getMyShareList(userId,begin,length);
+    public List<ShareListInfo> getMyShareList(HttpSession session,@RequestParam long begin, @RequestParam long length){
+        return shareService.getMyShareList(((SystemUser)session.getAttribute("user")).getId(),begin,length);
+    }
+
+    @RequestMapping(value = "/getnewestshare", method = RequestMethod.GET)
+    public List<ShareListInfo> getNewestShare(@RequestParam long begin, @RequestParam long length){
+        return shareService.getNewestShare(begin,length);
+    }
+
+    @RequestMapping(value = "/getfavoriteshare", method = RequestMethod.GET)
+    public List<ShareListInfo> getFavoriteShare(@RequestParam long begin, @RequestParam long length){
+        return shareService.getFavoriteShare(begin,length);
     }
 
     @RequestMapping(value = "/setsharestate", method = RequestMethod.GET)

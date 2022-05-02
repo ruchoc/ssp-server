@@ -2,19 +2,34 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.scau.pyx.ssp.mapper.ShareMapper">
-    <insert id="insertShare" parameterType="edu.scau.pyx.ssp.entity.Share" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    <insert id="insertShare" parameterType="edu.scau.pyx.ssp.entity.Share" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO T_SHARE ( CONTENT,STATE,USER_ID )
         VALUES (#{content},#{state},#{userId});
     </insert>
     <select id="getShare" resultType="edu.scau.pyx.ssp.entity.ShareListInfo">
-        SELECT U.`NAME` AS username, I.AVATAR_URL AS userAvatarUrl, S.TIME AS time, S.CONTENT AS content
+        SELECT S.ID AS id,
+               U.`NAME` AS username,
+               I.AVATAR_URL AS userAvatarUrl,
+               S.TIME AS time,
+               S.CONTENT AS content,
+               S.LIKENUM AS likeNum,
+               S.COLLECTNUM AS collectNum,
+               S.COMMENTNUM AS commentNum
         FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I
         WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.ID=#{shareId};
     </select>
     <select id="getPublicShareList" resultType="edu.scau.pyx.ssp.entity.ShareListInfo">
-        SELECT S.ID AS id, U.`NAME` AS username, I.AVATAR_URL AS userAvatarUrl, S.TIME AS time, S.CONTENT AS content
+        SELECT S.ID AS id,
+               U.`NAME` AS username,
+               I.AVATAR_URL AS userAvatarUrl,
+               S.TIME AS time,
+               S.CONTENT AS content,
+               S.LIKENUM AS likeNum,
+               S.COLLECTNUM AS collectNum,
+               S.COMMENTNUM AS commentNum
         FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I
         WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.STATE='public'
+        ORDER BY S.TIME DESC
         LIMIT #{begin},#{length};
     </select>
     <select id="getSharePictureList" resultType="edu.scau.pyx.ssp.entity.Picture">
@@ -23,9 +38,38 @@
         WHERE SHARE_ID = #{shareId};
     </select>
     <select id="getMyShareList" resultType="edu.scau.pyx.ssp.entity.ShareListInfo">
-        SELECT S.ID AS id, U.`NAME` AS username, I.AVATAR_URL AS userAvatarUrl, S.TIME AS time, S.CONTENT AS content
+        SELECT S.ID AS id, U.`NAME` AS username, I.AVATAR_URL AS userAvatarUrl, S.TIME AS time, S.CONTENT AS content, S.LIKENUM AS likeNum, S.COLLECTNUM AS collectNum, S.COMMENTNUM AS commentNum
         FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I
         WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.USER_ID=#{userId}
+        ORDER BY S.TIME DESC
+        LIMIT #{begin},#{length};
+    </select>
+    <select id="getNewestShare" resultType="edu.scau.pyx.ssp.entity.ShareListInfo">
+        SELECT S.ID AS id,
+               U.`NAME` AS username,
+               I.AVATAR_URL AS userAvatarUrl,
+               S.TIME AS time,
+               S.CONTENT AS content,
+               S.LIKENUM AS likeNum,
+               S.COLLECTNUM AS collectNum,
+               S.COMMENTNUM AS commentNum
+        FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I
+        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.STATE='public'
+        ORDER BY S.TIME DESC
+        LIMIT #{begin},#{length};
+    </select>
+    <select id="getFavoriteShare" resultType="edu.scau.pyx.ssp.entity.ShareListInfo">
+        SELECT S.ID AS id,
+               U.`NAME` AS username,
+               I.AVATAR_URL AS userAvatarUrl,
+               S.TIME AS time,
+               S.CONTENT AS content,
+               S.LIKENUM AS likeNum,
+               S.COLLECTNUM AS collectNum,
+               S.COMMENTNUM AS commentNum
+        FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I
+        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.STATE='public'
+        ORDER BY S.LIKENUM DESC
         LIMIT #{begin},#{length};
     </select>
     <update id="updateShareState">
@@ -39,13 +83,32 @@
             U.`NAME` AS username,
             I.AVATAR_URL AS userAvatarUrl,
             S.TIME AS time,
-		S.CONTENT AS content
-        FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I,
-        WHERE CONTENT LIKE #{content} AND S.USER_ID=U.ID AND U.ID=I.USER_ID;
+		    S.CONTENT AS content,
+		    S.LIKENUM AS likeNum,
+		    S.COLLECTNUM AS collectNum,
+		    S.COMMENTNUM AS commentNum
+        FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I
+        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.CONTENT LIKE '%xuan%'
+        ORDER BY S.TIME DESC;
     </select>
     <update id="updateContent">
         UPDATE T_SHARE
         SET CONTENT = #{content}
         WHERE ID = #{id}
+    </update>
+    <update id="updateLikeNum">
+        UPDATE T_SHARE
+        SET LIKENUM = LIKENUM+1
+        WHERE ID = #{id};
+    </update>
+    <update id="updateCollectNum">
+        UPDATE T_SHARE
+        SET COLLECTNUM = COLLECTNUM+1
+        WHERE ID = #{id};
+    </update>
+    <update id="updateCommentNum">
+        UPDATE T_SHARE
+        SET COMMENTNUM = COMMENTNUM+1
+        WHERE ID = #{id};
     </update>
 </mapper>

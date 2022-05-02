@@ -10,4 +10,9 @@
         DELETE FROM T_SENSITIVE_KEYWORD
         WHERE ID = #{sensitiveKeywordId};
     </delete>
+    <select id="match" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM T_SENSITIVE_KEYWORD
+        WHERE #{content} LIKE KEYWORK;
+    </select>
 </mapper>

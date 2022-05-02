@@ -2,10 +2,12 @@ package edu.scau.pyx.ssp.controller;
 
 import edu.scau.pyx.ssp.entity.Comment;
 import edu.scau.pyx.ssp.entity.CommentListInfo;
+import edu.scau.pyx.ssp.entity.SystemUser;
 import edu.scau.pyx.ssp.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -15,7 +17,8 @@ public class CommentController {
     private CommentService commentService;
 
     @RequestMapping(value = "/publish", method = RequestMethod.POST)
-    public boolean publish(@RequestBody Comment comment){
+    public boolean publish(@RequestBody Comment comment, HttpSession session){
+        comment.setUserId(((SystemUser)session.getAttribute("user")).getId());
         return commentService.publishComment(comment);
     }
 
