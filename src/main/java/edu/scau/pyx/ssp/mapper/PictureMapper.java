@@ -8,4 +8,6 @@ public interface PictureMapper {
     public Picture getPicture(String URL);
 
     public boolean insertPicture(String URL, long shareId);
+
+    public boolean deletePicture(long id);
 }

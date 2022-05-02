@@ -7,4 +7,6 @@ import java.util.List;
 @Mapper
 public interface RoleMapper {
     public List<Role> getRolesByUserName(String username);
+
+    public boolean insertUserAndRole(long userId);
 }

@@ -2,6 +2,7 @@ package edu.scau.pyx.ssp.service.impl;
 
 import edu.scau.pyx.ssp.entity.SystemUser;
 import edu.scau.pyx.ssp.entity.UserListInfo;
+import edu.scau.pyx.ssp.mapper.RoleMapper;
 import edu.scau.pyx.ssp.mapper.UserMapper;
 import edu.scau.pyx.ssp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,14 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private RoleMapper roleMapper;
 
     @Override
     public boolean register(SystemUser systemUser) {
         encryptPassword(systemUser);
-        return userMapper.insertUser(systemUser);
+        userMapper.insertUser(systemUser);
+        return roleMapper.insertUserAndRole(userMapper.getUserId(systemUser.getName()));
     }
 
     @Override

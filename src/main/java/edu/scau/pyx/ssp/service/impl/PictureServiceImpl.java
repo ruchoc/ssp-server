@@ -22,4 +22,9 @@ public class PictureServiceImpl implements PictureService {
     public boolean uploadPicture(String URL, long shareId) {
         return pictureMapper.insertPicture(URL, shareId);
     }
+
+    @Override
+    public boolean deletePicture(long id) {
+        return pictureMapper.deletePicture(id);
+    }
 }

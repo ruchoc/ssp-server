@@ -2,6 +2,7 @@ package edu.scau.pyx.ssp.controller;
 
 import edu.scau.pyx.ssp.entity.Share;
 import edu.scau.pyx.ssp.entity.ShareListInfo;
+import edu.scau.pyx.ssp.service.PictureService;
 import edu.scau.pyx.ssp.service.ShareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,9 @@ import java.util.List;
 public class ShareController {
     @Autowired
     private ShareService shareService;
+
+    @Autowired
+    private PictureService pictureService;
 
     @RequestMapping(value = "/publish", method = RequestMethod.POST)
     public long publish(@RequestBody Share share){
@@ -38,5 +42,20 @@ public class ShareController {
     @RequestMapping(value = "/setsharestate", method = RequestMethod.GET)
     public boolean setShareState(@RequestParam long shareId, @RequestParam String state){
         return shareService.setShareState(shareId,state);
+    }
+
+    @RequestMapping(value = "/searchshare", method = RequestMethod.GET)
+    public List<ShareListInfo> searchShare(@RequestParam String content){
+        return shareService.searchShare(content);
+    }
+
+    @RequestMapping(value = "/deletepicture", method = RequestMethod.GET)
+    public boolean deletePicture(@RequestParam long id){
+        return pictureService.deletePicture(id);
+    }
+
+    @RequestMapping(value = "/updatecontent", method = RequestMethod.POST)
+    public boolean updateContent(@RequestBody Share share){
+        return shareService.updateContent(share);
     }
 }

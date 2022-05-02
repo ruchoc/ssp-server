@@ -13,4 +13,8 @@
         INSERT INTO T_PICTURE( URL,SHARE_ID )
         VALUES ( #{URL},#{shareId} );
     </insert>
+    <delete id="deletePicture">
+        DELETE FROM T_PICTURE
+        WHERE ID = #{id};
+    </delete>
 </mapper>

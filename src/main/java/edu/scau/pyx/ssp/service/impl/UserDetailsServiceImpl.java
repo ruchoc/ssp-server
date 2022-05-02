@@ -23,6 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("loadUserByUsername");
         SystemUser systemUser = userRoleService.getUserByUsername(username);
         List<Role> roles = userRoleService.getRolesByUsername(username);
         return toUserDetails(systemUser,roles);
@@ -36,11 +37,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * @return UserDetails类型的用户信息对象
      */
     private UserDetails toUserDetails(SystemUser systemUser, List<Role> roles) {
+        System.out.println("toUserDetails");
         if (systemUser == null) {
             return null;
         }
         List<GrantedAuthority> authorityList = new ArrayList<>(); // 权限列表
         for (Role role : roles) {
+            System.out.println(role.getName());
             GrantedAuthority authority = new SimpleGrantedAuthority(role.getName());
             authorityList.add(authority);
         }

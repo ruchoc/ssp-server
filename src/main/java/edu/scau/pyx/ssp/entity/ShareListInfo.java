@@ -9,12 +9,12 @@ public class ShareListInfo {
     private String userAvatarUrl;
     private Date time;
     private String content;
-    private List<String> pictureList;
+    private List<Picture> pictureList;
 
     public ShareListInfo() {
     }
 
-    public ShareListInfo(long id, String username, String userAvatarUrl, Date time, String content, List<String> pictureList) {
+    public ShareListInfo(long id, String username, String userAvatarUrl, Date time, String content, List<Picture> pictureList) {
         this.id = id;
         this.username = username;
         this.userAvatarUrl = userAvatarUrl;
@@ -63,11 +63,11 @@ public class ShareListInfo {
         this.content = content;
     }
 
-    public List<String> getPictureList() {
+    public List<Picture> getPictureList() {
         return pictureList;
     }
 
-    public void setPictureList(List<String> pictureList) {
+    public void setPictureList(List<Picture> pictureList) {
         this.pictureList = pictureList;
     }
 }

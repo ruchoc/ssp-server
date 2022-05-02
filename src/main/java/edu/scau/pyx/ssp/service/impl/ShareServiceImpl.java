@@ -48,4 +48,22 @@ public class ShareServiceImpl implements ShareService {
     public boolean setShareState(long shareId, String state) {
         return shareMapper.updateShareState(shareId,state);
     }
+
+    @Override
+    public List<ShareListInfo> searchShare(String content) {
+        StringBuffer sb = new StringBuffer("%");
+        sb.append(content);
+        sb.append("%");
+        content = sb.toString();
+        List<ShareListInfo> shareList = shareMapper.searchShare(content);
+        for(ShareListInfo shareListInfo : shareList){
+            shareListInfo.setPictureList(shareMapper.getSharePictureList(shareListInfo.getId()));
+        }
+        return shareList;
+    }
+
+    @Override
+    public boolean updateContent(Share share) {
+        return shareMapper.updateContent(share.getContent(),share.getId());
+    }
 }

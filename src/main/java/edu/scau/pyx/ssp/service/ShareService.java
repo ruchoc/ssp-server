@@ -15,4 +15,8 @@ public interface ShareService {
     public List<ShareListInfo> getMyShareList(long userId, long begin, long length);
 
     public boolean setShareState(long shareId, String state);
+
+    public List<ShareListInfo> searchShare(String content);
+
+    public boolean updateContent(Share share);
 }
