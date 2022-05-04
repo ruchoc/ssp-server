@@ -37,6 +37,12 @@ public class UserController {
         return userService.signIn(user,session);
     }
 
+    @RequestMapping(value = "/signout",method = RequestMethod.POST)
+    public String signOut(HttpSession session){
+        session.removeAttribute("user");
+        return "sign out";
+    }
+
     @RequestMapping(value = "/getuser",method = RequestMethod.GET)
     public SystemUser getUser(@RequestParam(value = "userId", required = true) long userId){
         return userService.getUser(userId);
