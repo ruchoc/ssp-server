@@ -9,7 +9,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")   //所有方法都做处理跨域
-                .allowedOrigins("http://localhost:80")  //允许跨域的请求头
+                .allowedOrigins("*")  //允许跨域的请求头
                 .allowedMethods("*")  //允许通过地请求方法
                 .allowedHeaders("*");  //允许的请求头
     }
