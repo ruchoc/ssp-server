@@ -11,6 +11,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addMapping("/**")   //所有方法都做处理跨域
                 .allowedOrigins("*")  //允许跨域的请求头
                 .allowedMethods("*")  //允许通过地请求方法
-                .allowedHeaders("*");  //允许的请求头
+                .allowedHeaders("*")  //允许的请求头
+                .allowCredentials(true)//允许携带cookie参数
+                .allowedOriginPatterns("*");
     }
 }
