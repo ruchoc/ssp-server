@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.scau.pyx.ssp.mapper.SensitiveKeywordMapper">
     <insert id="insertSensitiveKeyword">
-        INSERT INTO T_SENSITIVE_KEYWORD (KEYWORK)
+        INSERT INTO T_SENSITIVE_KEYWORD (KEYWORD)
         VALUES (#{keyword});
     </insert>
     <delete id="deleteSensitiveKeyword">
@@ -13,6 +13,13 @@
     <select id="match" resultType="java.lang.Long">
         SELECT COUNT(*)
         FROM T_SENSITIVE_KEYWORD
-        WHERE #{content} LIKE KEYWORK;
+        WHERE #{content} LIKE KEYWORD;
+    </select>
+    <select id="getSensitiveKeyword" resultType="edu.scau.pyx.ssp.entity.SensitiveKeyword">
+        SELECT
+            ID AS id,
+            KEYWORD AS keyword
+        FROM t_sensitive_keyword
+        LIMIT #{begin},#{length};
     </select>
 </mapper>
