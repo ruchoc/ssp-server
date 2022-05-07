@@ -18,8 +18,7 @@ public class CORSConf {
                         .allowedHeaders("*")
                         .allowedMethods("*")
                         .allowedOrigins("http://127.0.0.1:8081")
-                        .allowCredentials(true)
-                        .maxAge(3600);//允许跨域时间;
+                        .allowCredentials(true);
             }
         };
     }
