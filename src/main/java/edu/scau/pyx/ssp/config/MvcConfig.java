@@ -13,7 +13,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")//设置允许跨域的路径
-                .allowedOrigins("http://127.0.0.1:8000")//允许指定前端的请求跨域，传cookie不能*
+                .allowedOriginPatterns("*")
                 .allowedHeaders("*")//允许的请求头
                 .allowedMethods("*")//允许请求的方法，get、post、put....
                 .allowCredentials(true);//使用凭证
