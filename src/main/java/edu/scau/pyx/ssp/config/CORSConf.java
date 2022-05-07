@@ -17,8 +17,9 @@ public class CORSConf {
                 registry.addMapping("/**")
                         .allowedHeaders("*")
                         .allowedMethods("*")
-                        .allowedOriginPatterns("*")
-                        .allowCredentials(true);
+                        .allowedOrigins("http://127.0.0.1:8081")
+                        .allowCredentials(true)
+                        .maxAge(3600);//允许跨域时间;
             }
         };
     }
