@@ -88,7 +88,7 @@
 		    S.COLLECTNUM AS collectNum,
 		    S.COMMENTNUM AS commentNum
         FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I
-        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.CONTENT LIKE '%xuan%'
+        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.CONTENT LIKE #{content}
         ORDER BY S.TIME DESC;
     </select>
     <update id="updateContent">
