@@ -6,9 +6,13 @@ import edu.scau.pyx.ssp.mapper.SensitiveKeywordMapper;
 import edu.scau.pyx.ssp.mapper.ShareMapper;
 import edu.scau.pyx.ssp.service.ShareService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class ShareServiceImpl implements ShareService {
@@ -16,6 +20,8 @@ public class ShareServiceImpl implements ShareService {
     private ShareMapper shareMapper;
     @Autowired
     private SensitiveKeywordMapper sensitiveKeywordMapper;
+    @Autowired
+    private RedisTemplate<String,String> redisTemplate;
 
     @Override
     public long publish(Share share) {
@@ -59,7 +65,8 @@ public class ShareServiceImpl implements ShareService {
 
     @Override
     public List<ShareListInfo> searchShare(String content) {
-        StringBuffer sb = new StringBuffer("%");
+        addHotSearch(content);
+        StringBuilder sb = new StringBuilder("%");
         sb.append(content);
         sb.append("%");
         content = sb.toString();
@@ -83,5 +90,17 @@ public class ShareServiceImpl implements ShareService {
     @Override
     public List<ShareListInfo> getFavoriteShare(long begin, long length) {
         return shareMapper.getFavoriteShare(begin,length);
+    }
+
+    private void addHotSearch(String hotSearch){
+        Calendar tomorrow = Calendar.getInstance();
+        tomorrow.add(Calendar.DATE,1);
+        tomorrow.set(Calendar.HOUR_OF_DAY,0);
+        tomorrow.set(Calendar.MINUTE,0);
+        tomorrow.set(Calendar.SECOND,0);
+        tomorrow.set(Calendar.MILLISECOND,0);
+        long timeOut = (tomorrow.getTimeInMillis() - System.currentTimeMillis())/1000;
+        redisTemplate.expire("hotSearchSet", timeOut, TimeUnit.SECONDS);
+        redisTemplate.boundZSetOps("hotSearchSet").incrementScore(hotSearch,1);
     }
 }
