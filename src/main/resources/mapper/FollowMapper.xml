@@ -22,4 +22,8 @@
         FROM T_USER AS U,T_USER_INFO AS I,T_FOLLOW AS F
         WHERE U.ID=I.USER_ID AND U.ID=F.FROM_USER_ID AND F.TO_USER_ID=#{userId};
     </select>
+    <delete id="deleteFollow">
+        DELETE FROM T_FOLLOW
+        WHERE FROM_USER_ID = #{fromUserId} AND TO_USER_ID = #{toUserId};
+    </delete>
 </mapper>

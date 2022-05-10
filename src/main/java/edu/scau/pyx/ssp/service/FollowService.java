@@ -11,4 +11,6 @@ public interface FollowService {
     public List<UserListInfo> getFollowingUser(long userId);
 
     public List<UserListInfo> getFans(long userId);
+
+    public boolean deleteFollow(long fromUserId, long toUserId);
 }

@@ -30,5 +30,10 @@ public class FollowServiceImpl implements FollowService {
         return followMapper.getFans(userId);
     }
 
+    @Override
+    public boolean deleteFollow(long fromUserId, long toUserId) {
+        return followMapper.deleteFollow(fromUserId,toUserId);
+    }
+
 
 }
