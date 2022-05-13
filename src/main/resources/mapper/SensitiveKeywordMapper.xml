@@ -22,4 +22,8 @@
         FROM t_sensitive_keyword
         LIMIT #{begin},#{length};
     </select>
+    <select id="getSensitiveKeywordNum">
+        SELECT COUNT(*)
+        FROM t_sensitive_keyword;
+    </select>
 </mapper>

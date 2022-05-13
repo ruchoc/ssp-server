@@ -57,4 +57,17 @@
         FROM T_USER AS U,T_USER_INFO AS I
         WHERE U.ID=I.USER_ID AND U.`NAME` LIKE #{username};
     </select>
+    <select id="getUserList">
+        SELECT
+            U.ID AS userId,
+            U.`NAME` AS username,
+            I.AVATAR_URL AS avatarUrl
+        FROM T_USER AS U,T_USER_INFO AS I
+        WHERE U.ID=I.USER_ID
+        LIMIT #{begin},#{length};
+    </select>
+    <select id="getUserNum">
+        SELECT COUNT(*)
+        FROM T_USER;
+    </select>
 </mapper>

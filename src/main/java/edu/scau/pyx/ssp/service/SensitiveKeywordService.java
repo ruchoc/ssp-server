@@ -10,4 +10,6 @@ public interface SensitiveKeywordService {
     public boolean deleteSensitiveKeyword(long sensitiveKeywordId);
 
     public List<SensitiveKeyword> getSensitiveKeyword(long begin, long length);
+
+    public long getSensitiveKeywordNum();
 }

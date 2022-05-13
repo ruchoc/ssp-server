@@ -27,4 +27,9 @@ public class ReplyController {
     public List<ReplyListInfo> getReply(@RequestParam long commentId, @RequestParam long begin, @RequestParam long length){
         return replyService.getReply(commentId,begin,length);
     }
+
+    @RequestMapping(value = "/getreplynum", method = RequestMethod.GET)
+    public long getReplyNum(@RequestParam long commmentId){
+        return replyService.getReplyNum(commmentId);
+    }
 }

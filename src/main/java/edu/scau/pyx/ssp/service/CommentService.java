@@ -9,4 +9,6 @@ public interface CommentService {
     public boolean publishComment(Comment comment);
 
     public List<CommentListInfo> getComment(long shareId, long begin, long length);
+
+    public long getCommentNum(long shareId);
 }

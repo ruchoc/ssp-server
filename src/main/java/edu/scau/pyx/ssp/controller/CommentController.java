@@ -26,4 +26,9 @@ public class CommentController {
     public List<CommentListInfo> getComment(@RequestParam long shareId, @RequestParam long begin, @RequestParam long length){
         return commentService.getComment(shareId,begin,length);
     }
+
+    @RequestMapping(value = "/getcommentnum", method = RequestMethod.GET)
+    public long getCommentNum(@RequestParam long shareId){
+        return commentService.getCommentNum(shareId);
+    }
 }

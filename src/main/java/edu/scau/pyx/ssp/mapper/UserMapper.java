@@ -23,4 +23,8 @@ public interface UserMapper {
     public long getUserId(String username);
 
     public List<UserListInfo> searchUser(String username);
+
+    public List<UserListInfo> getUserList(long begin, long length);
+
+    public long getUserNum();
 }

@@ -2,6 +2,7 @@ package edu.scau.pyx.ssp.controller;
 
 import edu.scau.pyx.ssp.entity.SensitiveKeyword;
 import edu.scau.pyx.ssp.entity.SystemUser;
+import edu.scau.pyx.ssp.entity.UserListInfo;
 import edu.scau.pyx.ssp.service.SensitiveKeywordService;
 import edu.scau.pyx.ssp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,11 @@ public class AdministratorController {
         return sensitiveKeywordService.getSensitiveKeyword(begin, length);
     }
 
+    @RequestMapping(value = "/getsensitivekeywordnum", method = RequestMethod.GET)
+    public long getSensitiveKeywordNum(){
+        return sensitiveKeywordService.getSensitiveKeywordNum();
+    }
+
     @RequestMapping(value = "/insertsensitivekeyword",method = RequestMethod.POST)
     public boolean insertSensitiveKeyword(@RequestBody Map<String,String> keywordMap){
         return sensitiveKeywordService.insertSensitiveKeyword(keywordMap.get("keyword"));
@@ -37,5 +43,15 @@ public class AdministratorController {
     @RequestMapping(value = "/deletesensitivekeyword",method = RequestMethod.DELETE)
     public boolean deleteSensitiveKeyword(@RequestParam(value = "id",required = true) long id){
         return sensitiveKeywordService.deleteSensitiveKeyword(id);
+    }
+
+    @RequestMapping(value = "/getuserlist", method = RequestMethod.GET)
+    public List<UserListInfo> getUserList(@RequestParam long begin, @RequestParam long length){
+        return userService.getUserList(begin,length);
+    }
+
+    @RequestMapping(value = "/getusernum", method = RequestMethod.GET)
+    public long getUserNum(){
+        return userService.getUserNum();
     }
 }

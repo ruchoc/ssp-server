@@ -75,4 +75,14 @@ public class UserServiceImpl implements UserService {
     public SystemUser getUserByUsername(String username) {
         return userMapper.getUserByUserName(username);
     }
+
+    @Override
+    public List<UserListInfo> getUserList(long begin, long length ){
+        return userMapper.getUserList(begin,length);
+    }
+
+    @Override
+    public long getUserNum() {
+        return userMapper.getUserNum();
+    }
 }

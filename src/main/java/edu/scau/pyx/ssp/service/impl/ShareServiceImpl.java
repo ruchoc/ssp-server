@@ -97,6 +97,16 @@ public class ShareServiceImpl implements ShareService {
         return shareMapper.delete(shareId);
     }
 
+    @Override
+    public long getPublicShareNum() {
+        return shareMapper.getPublicShareNum();
+    }
+
+    @Override
+    public long getMyShareNum(long userId) {
+        return shareMapper.getMyShareNum(userId);
+    }
+
     private void addHotSearch(String hotSearch){
         Calendar tomorrow = Calendar.getInstance();
         tomorrow.add(Calendar.DATE,1);

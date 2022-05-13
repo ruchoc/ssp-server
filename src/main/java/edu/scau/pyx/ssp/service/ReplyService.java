@@ -9,4 +9,6 @@ public interface ReplyService {
     public boolean publishReply(Reply reply);
 
     public List<ReplyListInfo>  getReply(long commentId, long begin, long length);
+
+    public long getReplyNum(long commmentId);
 }

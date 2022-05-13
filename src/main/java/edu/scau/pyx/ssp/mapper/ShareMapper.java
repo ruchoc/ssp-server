@@ -38,4 +38,8 @@ public interface ShareMapper {
     public boolean updateCommentNum(long id);
 
     public boolean delete(long shareId);
+
+    public long getPublicShareNum();
+
+    public long getMyShareNum(long userId);
 }

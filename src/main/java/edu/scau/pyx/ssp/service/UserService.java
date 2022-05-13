@@ -2,6 +2,7 @@ package edu.scau.pyx.ssp.service;
 
 import edu.scau.pyx.ssp.entity.SystemUser;
 import edu.scau.pyx.ssp.entity.UserListInfo;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -24,4 +25,8 @@ public interface UserService {
     public List<UserListInfo> searchUser(String username);
 
     public SystemUser getUserByUsername(String username);
+
+    public List<UserListInfo> getUserList(long begin, long length);
+
+    public long getUserNum();
 }

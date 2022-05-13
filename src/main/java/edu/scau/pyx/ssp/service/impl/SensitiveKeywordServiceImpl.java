@@ -36,4 +36,9 @@ public class SensitiveKeywordServiceImpl implements SensitiveKeywordService {
         }
         return sensitiveKeywordList;
     }
+
+    @Override
+    public long getSensitiveKeywordNum() {
+        return sensitiveKeywordMapper.getSensitiveKeywordNum();
+    }
 }

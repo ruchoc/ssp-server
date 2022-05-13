@@ -80,4 +80,14 @@ public class ShareController {
     public boolean delete(@PathVariable("shareId") long shareId){
         return shareService.delete(shareId);
     }
+
+    @RequestMapping(value = "/getpublicsharenum", method = RequestMethod.GET)
+    public long getPublicShareNum(){
+        return shareService.getPublicShareNum();
+    }
+
+    @RequestMapping(value = "/getmysharenum", method = RequestMethod.GET)
+    public long getMyShareNum(HttpSession session){
+        return shareService.getMyShareNum(((SystemUser)session.getAttribute("user")).getId());
+    }
 }

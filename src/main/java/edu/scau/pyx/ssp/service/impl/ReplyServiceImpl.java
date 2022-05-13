@@ -22,4 +22,9 @@ public class ReplyServiceImpl implements ReplyService {
     public List<ReplyListInfo> getReply(long commentId, long begin, long length) {
         return replyMapper.getReply(commentId,begin,length);
     }
+
+    @Override
+    public long getReplyNum(long commmentId) {
+        return replyMapper.getReplyNum(commmentId);
+    }
 }

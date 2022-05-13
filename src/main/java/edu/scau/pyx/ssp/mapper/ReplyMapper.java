@@ -11,4 +11,6 @@ public interface ReplyMapper {
     public boolean insertReply(Reply reply);
 
     public List<ReplyListInfo> getReply(long commentId, long begin, long length);
+
+    public long getReplyNum(long commmentId);
 }

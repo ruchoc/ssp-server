@@ -9,6 +9,13 @@
     <select id="getReply" resultType="edu.scau.pyx.ssp.entity.ShareListInfo">
         SELECT R.ID AS id,U1.`NAME` AS sendUserName,U2.`NAME` AS acceptUserName,R.CONTENT AS content,R.TIME AS time
         FROM T_USER AS U1,T_REPLY AS R,T_USER AS U2
+        WHERE U1.ID=R.SEND_USER_ID AND R.ACCEPT_USER_ID=U2.ID AND R.COMMENT_ID=#{commentId}
+        ORDER BY R.TIME DESC
+        LIMIT #{begin},#{length};
+    </select>
+    <select id="getReplyNum">
+        SELECT COUNT(*)
+        FROM T_USER AS U1,T_REPLY AS R,T_USER AS U2
         WHERE U1.ID=R.SEND_USER_ID AND R.ACCEPT_USER_ID=U2.ID AND R.COMMENT_ID=#{commentId};
     </select>
 </mapper>

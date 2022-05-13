@@ -14,4 +14,6 @@ public interface SensitiveKeywordMapper {
     public long match(String content);
 
     public List<SensitiveKeyword> getSensitiveKeyword(long begin, long length);
+
+    public long getSensitiveKeywordNum();
 }
