@@ -28,7 +28,7 @@
                S.COLLECTNUM AS collectNum,
                S.COMMENTNUM AS commentNum
         FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I
-        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.STATE='public'
+        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.STATE='public' AND U.LOCKED=0
         ORDER BY S.TIME DESC
         LIMIT #{begin},#{length};
     </select>
@@ -40,7 +40,7 @@
     <select id="getMyShareList" resultType="edu.scau.pyx.ssp.entity.ShareListInfo">
         SELECT S.ID AS id, U.`NAME` AS username, I.AVATAR_URL AS userAvatarUrl, S.TIME AS time, S.CONTENT AS content, S.LIKENUM AS likeNum, S.COLLECTNUM AS collectNum, S.COMMENTNUM AS commentNum
         FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I
-        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.USER_ID=#{userId}
+        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.USER_ID=#{userId} AND U.LOCKED=0
         ORDER BY S.TIME DESC
         LIMIT #{begin},#{length};
     </select>
@@ -54,7 +54,7 @@
                S.COLLECTNUM AS collectNum,
                S.COMMENTNUM AS commentNum
         FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I
-        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.STATE='public'
+        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.STATE='public' AND U.LOCKED=0
         ORDER BY S.TIME DESC
         LIMIT #{begin},#{length};
     </select>
@@ -68,7 +68,7 @@
                S.COLLECTNUM AS collectNum,
                S.COMMENTNUM AS commentNum
         FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I
-        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.STATE='public'
+        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.STATE='public' AND U.LOCKED=0
         ORDER BY S.LIKENUM DESC
         LIMIT #{begin},#{length};
     </select>
@@ -88,7 +88,7 @@
 		    S.COLLECTNUM AS collectNum,
 		    S.COMMENTNUM AS commentNum
         FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I
-        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.CONTENT LIKE #{content}
+        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.CONTENT LIKE #{content} AND U.LOCKED=0
         ORDER BY S.TIME DESC;
     </select>
     <update id="updateContent">
@@ -96,9 +96,14 @@
         SET CONTENT = #{content}
         WHERE ID = #{id}
     </update>
-    <update id="updateLikeNum">
+    <update id="increaseLikeNum">
         UPDATE T_SHARE
         SET LIKENUM = LIKENUM+1
+        WHERE ID = #{id};
+    </update>
+    <update id="decreaseLikeNum">
+        UPDATE T_SHARE
+        SET LIKENUM = LIKENUM-1
         WHERE ID = #{id};
     </update>
     <update id="updateCollectNum">
@@ -110,5 +115,10 @@
         UPDATE T_SHARE
         SET COMMENTNUM = COMMENTNUM+1
         WHERE ID = #{id};
+    </update>
+    <update id="delete">
+        UPDATE T_SHARE
+        SET `STATE` = 'deleted'
+        WHERE ID = #{shareId};
     </update>
 </mapper>

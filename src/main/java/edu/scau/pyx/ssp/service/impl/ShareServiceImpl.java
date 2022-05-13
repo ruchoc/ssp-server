@@ -92,6 +92,11 @@ public class ShareServiceImpl implements ShareService {
         return shareMapper.getFavoriteShare(begin,length);
     }
 
+    @Override
+    public boolean delete(long shareId) {
+        return shareMapper.delete(shareId);
+    }
+
     private void addHotSearch(String hotSearch){
         Calendar tomorrow = Calendar.getInstance();
         tomorrow.add(Calendar.DATE,1);

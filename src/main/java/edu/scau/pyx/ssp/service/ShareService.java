@@ -23,4 +23,6 @@ public interface ShareService {
     List<ShareListInfo> getNewestShare(long begin, long length);
 
     List<ShareListInfo> getFavoriteShare(long begin, long length);
+
+    public boolean delete(long shareId);
 }

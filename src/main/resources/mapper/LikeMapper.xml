@@ -6,4 +6,8 @@
         INSERT INTO T_LIKE( USER_ID,SHARE_ID )
         VALUES ( #{userId},#{shareId} );
     </insert>
+    <delete id="delete">
+        DELETE FROM T_LIKE
+        WHERE USER_ID = #{userId} AND SHARE_ID = #{shareId};
+    </delete>
 </mapper>

@@ -23,7 +23,11 @@ public class ShareController {
 
     @RequestMapping(value = "/publish", method = RequestMethod.POST)
     public long publish(@RequestBody Share share, HttpSession session){
-        share.setUserId(((SystemUser)session.getAttribute("user")).getId());
+        SystemUser user =((SystemUser)session.getAttribute("user"));
+        if(user.isLocked()){
+            return -1;
+        }
+        share.setUserId(user.getId());
         return shareService.publish(share);
     }
 
@@ -70,5 +74,10 @@ public class ShareController {
     @RequestMapping(value = "/updatecontent", method = RequestMethod.POST)
     public boolean updateContent(@RequestBody Share share){
         return shareService.updateContent(share);
+    }
+
+    @RequestMapping(value = "/delete/{shareId}", method = RequestMethod.DELETE)
+    public boolean delete(@PathVariable("shareId") long shareId){
+        return shareService.delete(shareId);
     }
 }

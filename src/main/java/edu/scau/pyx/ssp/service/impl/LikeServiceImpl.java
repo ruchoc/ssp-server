@@ -17,7 +17,13 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public boolean add(Like like) {
-        shareMapper.updateLikeNum(like.getShareId());
+        shareMapper.increaseLikeNum(like.getShareId());
         return likeMapper.insert(like);
+    }
+
+    @Override
+    public boolean cancel(long shareId, long userId) {
+        shareMapper.decreaseLikeNum(shareId);
+        return likeMapper.delete(shareId,userId);
     }
 }

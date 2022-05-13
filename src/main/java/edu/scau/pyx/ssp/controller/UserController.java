@@ -1,5 +1,6 @@
 package edu.scau.pyx.ssp.controller;
 
+import com.sun.deploy.net.HttpResponse;
 import edu.scau.pyx.ssp.entity.Follow;
 import edu.scau.pyx.ssp.entity.SystemUser;
 import edu.scau.pyx.ssp.entity.UserInfo;
@@ -10,7 +11,10 @@ import edu.scau.pyx.ssp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.Response;
 import java.util.List;
 
 @RestController
@@ -38,8 +42,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "/signout",method = RequestMethod.POST)
-    public String signOut(HttpSession session){
+    public String signOut(HttpSession session, HttpServletResponse response){
         session.removeAttribute("user");
+        Cookie cookie = new Cookie("jsessionid",null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
         return "sign out";
     }
 
@@ -55,12 +62,20 @@ public class UserController {
 
     @RequestMapping(value = "/getcurrentuser",method = RequestMethod.GET)
     public SystemUser getUser(HttpSession session){
-        return userService.getUser(((SystemUser) session.getAttribute("user")).getId());
+        SystemUser user = ((SystemUser) session.getAttribute("user"));
+        if(user == null){
+            return null;
+        }
+        return userService.getUser(user.getId());
     }
 
     @RequestMapping(value = "/getcurrentuserinfo",method = RequestMethod.GET)
     public UserInfo getUserInfo(HttpSession session){
-        return userInfoService.getUserInfo(((SystemUser) session.getAttribute("user")).getId());
+        SystemUser user = ((SystemUser) session.getAttribute("user"));
+        if(user == null){
+            return null;
+        }
+        return userInfoService.getUserInfo(user.getId());
     }
 
     @RequestMapping(value = "/updateusername",method = RequestMethod.POST)

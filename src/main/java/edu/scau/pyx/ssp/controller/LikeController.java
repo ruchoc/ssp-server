@@ -5,10 +5,7 @@ import edu.scau.pyx.ssp.entity.Like;
 import edu.scau.pyx.ssp.entity.SystemUser;
 import edu.scau.pyx.ssp.service.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,5 +19,11 @@ public class LikeController {
     public boolean add(@RequestBody Like like, HttpSession session){
         like.setUserId(((SystemUser)session.getAttribute("user")).getId());
         return likeService.add(like);
+    }
+
+    @RequestMapping(value = "/cancel/{shareId}",method = RequestMethod.DELETE)
+    public boolean cancel(@PathVariable long shareId, HttpSession session){
+        SystemUser user = (SystemUser) session.getAttribute("user");
+        return likeService.cancel(shareId,user.getId());
     }
 }
