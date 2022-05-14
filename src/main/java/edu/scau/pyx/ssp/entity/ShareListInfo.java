@@ -13,11 +13,13 @@ public class ShareListInfo {
     private long likeNum;
     private long collectNum;
     private long commentNum;
+    private boolean isLiked = false;
+    private boolean isCollected = false;
 
     public ShareListInfo() {
     }
 
-    public ShareListInfo(long id, String username, String userAvatarUrl, Date time, String content, List<Picture> pictureList, long likeNum, long collectNum, long commentNum) {
+    public ShareListInfo(long id, String username, String userAvatarUrl, Date time, String content, List<Picture> pictureList, long likeNum, long collectNum, long commentNum, boolean isLiked, boolean isCollected) {
         this.id = id;
         this.username = username;
         this.userAvatarUrl = userAvatarUrl;
@@ -27,6 +29,8 @@ public class ShareListInfo {
         this.likeNum = likeNum;
         this.collectNum = collectNum;
         this.commentNum = commentNum;
+        this.isLiked = isLiked;
+        this.isCollected = isCollected;
     }
 
     public long getId() {
@@ -99,5 +103,21 @@ public class ShareListInfo {
 
     public void setCommentNum(long commentNum) {
         this.commentNum = commentNum;
+    }
+
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
+    }
+
+    public boolean isCollected() {
+        return isCollected;
+    }
+
+    public void setCollected(boolean collected) {
+        isCollected = collected;
     }
 }

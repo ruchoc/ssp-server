@@ -24,6 +24,9 @@ public class LikeController {
     @RequestMapping(value = "/cancel/{shareId}",method = RequestMethod.DELETE)
     public boolean cancel(@PathVariable long shareId, HttpSession session){
         SystemUser user = (SystemUser) session.getAttribute("user");
+        if(user==null){
+            return false;
+        }
         return likeService.cancel(shareId,user.getId());
     }
 }

@@ -21,9 +21,11 @@ public class CollectController {
         collect.setUserId(((SystemUser)session.getAttribute("user")).getId());
         return collectService.add(collect);
     }
-
+    //TODO
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public List<ShareListInfo> get(HttpSession session){
         return collectService.getCollectList(((SystemUser)session.getAttribute("user")).getId());
     }
+
+    //TODO
 }

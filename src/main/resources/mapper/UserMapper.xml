@@ -57,7 +57,7 @@
         FROM T_USER AS U,T_USER_INFO AS I
         WHERE U.ID=I.USER_ID AND U.`NAME` LIKE #{username};
     </select>
-    <select id="getUserList">
+    <select id="getUserList" resultType="edu.scau.pyx.ssp.entity.UserListInfo">
         SELECT
             U.ID AS userId,
             U.`NAME` AS username,
@@ -66,7 +66,7 @@
         WHERE U.ID=I.USER_ID
         LIMIT #{begin},#{length};
     </select>
-    <select id="getUserNum">
+    <select id="getUserNum" resultType="long">
         SELECT COUNT(*)
         FROM T_USER;
     </select>

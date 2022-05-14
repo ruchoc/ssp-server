@@ -13,7 +13,7 @@
         ORDER BY C.TIME DESC
         LIMIT #{begin},#{length};
     </select>
-    <select id="getCommentNum">
+    <select id="getCommentNum" resultType="long">
         SELECT COUNT(*)
         FROM T_COMMENT AS C,T_USER AS U,T_USER_INFO AS I
         WHERE C.USER_ID=U.ID AND U.ID = I.USER_ID AND C.SHARE_ID = #{shareId}

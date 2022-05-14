@@ -30,27 +30,27 @@ public class ShareController {
         share.setUserId(user.getId());
         return shareService.publish(share);
     }
-
+    //TODO
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public ShareListInfo get(@RequestParam(value = "shareId", required = true) long shareId){
         return shareService.getShare(shareId);
     }
-
+    //TODO
     @RequestMapping(value = "/getpublicsharelist", method = RequestMethod.GET)
     public List<ShareListInfo> getPublicShareList(@RequestParam long begin, @RequestParam long length){
         return shareService.getPublicShareList(begin,length);
     }
-
+    //TODO
     @RequestMapping(value = "/getmysharelist", method = RequestMethod.GET)
     public List<ShareListInfo> getMyShareList(HttpSession session,@RequestParam long begin, @RequestParam long length){
         return shareService.getMyShareList(((SystemUser)session.getAttribute("user")).getId(),begin,length);
     }
-
+    //TODO
     @RequestMapping(value = "/getnewestshare", method = RequestMethod.GET)
     public List<ShareListInfo> getNewestShare(@RequestParam long begin, @RequestParam long length){
         return shareService.getNewestShare(begin,length);
     }
-
+    //TODO
     @RequestMapping(value = "/getfavoriteshare", method = RequestMethod.GET)
     public List<ShareListInfo> getFavoriteShare(@RequestParam long begin, @RequestParam long length){
         return shareService.getFavoriteShare(begin,length);
@@ -60,7 +60,7 @@ public class ShareController {
     public boolean setShareState(@RequestParam long shareId, @RequestParam String state){
         return shareService.setShareState(shareId,state);
     }
-
+    //TODO
     @RequestMapping(value = "/searchshare", method = RequestMethod.GET)
     public List<ShareListInfo> searchShare(@RequestParam String content){
         return shareService.searchShare(content);
