@@ -6,7 +6,7 @@
         INSERT INTO T_COMMENT( CONTENT,USER_ID,SHARE_ID )
         VALUES ( #{content},#{userId},#{shareId} );
     </insert>
-    <select id="getComment" resultType="edu.scau.pyx.ssp.entity.ShareListInfo">
+    <select id="getComment" resultType="edu.scau.pyx.ssp.entity.CommentListInfo">
         SELECT C.ID AS id, U.`NAME` AS username, I.AVATAR_URL AS avatarUrl, C.CONTENT AS content, C.TIME AS time
         FROM T_COMMENT AS C,T_USER AS U,T_USER_INFO AS I
         WHERE C.USER_ID=U.ID AND U.ID = I.USER_ID AND C.SHARE_ID = #{shareId}
