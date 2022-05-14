@@ -5,6 +5,7 @@ import java.util.List;
 
 public class ShareListInfo {
     private long id;
+    private long userId;
     private String username;
     private String userAvatarUrl;
     private Date time;
@@ -19,8 +20,9 @@ public class ShareListInfo {
     public ShareListInfo() {
     }
 
-    public ShareListInfo(long id, String username, String userAvatarUrl, Date time, String content, List<Picture> pictureList, long likeNum, long collectNum, long commentNum, boolean isLiked, boolean isCollected) {
+    public ShareListInfo(long id, long userId, String username, String userAvatarUrl, Date time, String content, List<Picture> pictureList, long likeNum, long collectNum, long commentNum, boolean isLiked, boolean isCollected) {
         this.id = id;
+        this.userId = userId;
         this.username = username;
         this.userAvatarUrl = userAvatarUrl;
         this.time = time;
@@ -39,6 +41,14 @@ public class ShareListInfo {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {

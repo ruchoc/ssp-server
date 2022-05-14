@@ -8,6 +8,7 @@
     </insert>
     <select id="getShare" resultType="edu.scau.pyx.ssp.entity.ShareListInfo">
         SELECT S.ID AS id,
+               U.ID AS userId,
                U.`NAME` AS username,
                I.AVATAR_URL AS userAvatarUrl,
                S.TIME AS time,
@@ -20,6 +21,7 @@
     </select>
     <select id="getPublicShareList" resultType="edu.scau.pyx.ssp.entity.ShareListInfo">
         SELECT S.ID AS id,
+               U.ID AS userId,
                U.`NAME` AS username,
                I.AVATAR_URL AS userAvatarUrl,
                S.TIME AS time,
@@ -38,7 +40,7 @@
         WHERE SHARE_ID = #{shareId};
     </select>
     <select id="getMyShareList" resultType="edu.scau.pyx.ssp.entity.ShareListInfo">
-        SELECT S.ID AS id, U.`NAME` AS username, I.AVATAR_URL AS userAvatarUrl, S.TIME AS time, S.CONTENT AS content, S.LIKENUM AS likeNum, S.COLLECTNUM AS collectNum, S.COMMENTNUM AS commentNum
+        SELECT S.ID AS id,U.ID AS userId, U.`NAME` AS username, I.AVATAR_URL AS userAvatarUrl, S.TIME AS time, S.CONTENT AS content, S.LIKENUM AS likeNum, S.COLLECTNUM AS collectNum, S.COMMENTNUM AS commentNum
         FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I
         WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.USER_ID=#{userId} AND U.LOCKED=0
         ORDER BY S.TIME DESC
@@ -46,6 +48,7 @@
     </select>
     <select id="getNewestShare" resultType="edu.scau.pyx.ssp.entity.ShareListInfo">
         SELECT S.ID AS id,
+               U.ID AS userId,
                U.`NAME` AS username,
                I.AVATAR_URL AS userAvatarUrl,
                S.TIME AS time,
@@ -60,6 +63,7 @@
     </select>
     <select id="getFavoriteShare" resultType="edu.scau.pyx.ssp.entity.ShareListInfo">
         SELECT S.ID AS id,
+               U.ID AS userId,
                U.`NAME` AS username,
                I.AVATAR_URL AS userAvatarUrl,
                S.TIME AS time,
@@ -80,6 +84,7 @@
     <select id="searchShare" resultType="edu.scau.pyx.ssp.entity.ShareListInfo">
         SELECT
             S.ID AS id,
+            U.ID AS userId,
             U.`NAME` AS username,
             I.AVATAR_URL AS userAvatarUrl,
             S.TIME AS time,
