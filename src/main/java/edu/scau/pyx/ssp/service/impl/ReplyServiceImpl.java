@@ -24,7 +24,7 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
-    public long getReplyNum(long commmentId) {
-        return replyMapper.getReplyNum(commmentId);
+    public long getReplyNum(long commentId) {
+        return replyMapper.getReplyNum(commentId);
     }
 }

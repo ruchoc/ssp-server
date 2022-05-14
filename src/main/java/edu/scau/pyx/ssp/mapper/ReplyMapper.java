@@ -12,5 +12,5 @@ public interface ReplyMapper {
 
     public List<ReplyListInfo> getReply(long commentId, long begin, long length);
 
-    public long getReplyNum(long commmentId);
+    public long getReplyNum(long commentId);
 }

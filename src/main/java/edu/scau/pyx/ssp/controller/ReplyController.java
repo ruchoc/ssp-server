@@ -29,7 +29,7 @@ public class ReplyController {
     }
 
     @RequestMapping(value = "/getreplynum", method = RequestMethod.GET)
-    public long getReplyNum(@RequestParam long commmentId){
-        return replyService.getReplyNum(commmentId);
+    public long getReplyNum(@RequestParam long commentId){
+        return replyService.getReplyNum(commentId);
     }
 }
