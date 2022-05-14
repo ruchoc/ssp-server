@@ -8,4 +8,6 @@ public interface LikeMapper {
     public boolean delete(long shareId, long userId);
 
     public boolean insert(Like like);
+
+    public int isLiked(long shareId, long userId);
 }

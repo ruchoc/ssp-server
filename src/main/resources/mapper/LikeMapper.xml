@@ -10,4 +10,9 @@
         DELETE FROM T_LIKE
         WHERE USER_ID = #{userId} AND SHARE_ID = #{shareId};
     </delete>
+    <select id="isLiked" resultType="int">
+        SELECT COUNT(*)
+        FROM T_LIKE
+        WHERE USER_ID = #{userId} AND SHARE_ID = #{shareId};
+    </select>
 </mapper>

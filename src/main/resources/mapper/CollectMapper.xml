@@ -19,4 +19,9 @@
         WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND C.SHARE_ID=S.ID AND C.USER_ID=#{userId} AND S.STATE='public' AND S.USER_ID=SU.ID AND SU.LOCKED=0
         ORDER BY C.COLLECT_TIME DESC;
     </select>
+    <select id="isCollected" resultType="int">
+        SELECT COUNT(*)
+        FROM T_COLLECT
+        WHERE USER_ID = #{userId} AND SHARE_ID = #{shareId};
+    </select>
 </mapper>

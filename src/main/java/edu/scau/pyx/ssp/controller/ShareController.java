@@ -30,40 +30,72 @@ public class ShareController {
         share.setUserId(user.getId());
         return shareService.publish(share);
     }
-    //TODO
+
     @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public ShareListInfo get(@RequestParam(value = "shareId", required = true) long shareId){
-        return shareService.getShare(shareId);
+    public ShareListInfo get(@RequestParam(value = "shareId", required = true) long shareId, HttpSession session){
+        SystemUser user = (SystemUser) session.getAttribute("user");
+        ShareListInfo shareListInfo =  shareService.getShare(shareId);
+        if(user != null){
+            shareService.setLikeAndCollectState(shareListInfo, user.getId());
+        }
+        return shareListInfo;
+
     }
-    //TODO
+
     @RequestMapping(value = "/getpublicsharelist", method = RequestMethod.GET)
-    public List<ShareListInfo> getPublicShareList(@RequestParam long begin, @RequestParam long length){
-        return shareService.getPublicShareList(begin,length);
+    public List<ShareListInfo> getPublicShareList(@RequestParam long begin, @RequestParam long length, HttpSession session){
+        SystemUser user = (SystemUser) session.getAttribute("user");
+        List<ShareListInfo> shareListInfoList = shareService.getPublicShareList(begin,length);
+        if(user != null){
+            shareService.setLikeAndCollectState(shareListInfoList, user.getId());
+        }
+        return shareListInfoList;
     }
-    //TODO
+
     @RequestMapping(value = "/getmysharelist", method = RequestMethod.GET)
     public List<ShareListInfo> getMyShareList(HttpSession session,@RequestParam long begin, @RequestParam long length){
-        return shareService.getMyShareList(((SystemUser)session.getAttribute("user")).getId(),begin,length);
+        SystemUser user = (SystemUser) session.getAttribute("user");
+        if(user == null){
+            return null;
+        }
+        List<ShareListInfo> shareListInfoList = shareService.getMyShareList(((SystemUser)session.getAttribute("user")).getId(),begin,length);
+        shareService.setLikeAndCollectState(shareListInfoList, user.getId());
+        return shareListInfoList;
     }
-    //TODO
+
     @RequestMapping(value = "/getnewestshare", method = RequestMethod.GET)
-    public List<ShareListInfo> getNewestShare(@RequestParam long begin, @RequestParam long length){
-        return shareService.getNewestShare(begin,length);
+    public List<ShareListInfo> getNewestShare(@RequestParam long begin, @RequestParam long length, HttpSession session){
+        SystemUser user = (SystemUser) session.getAttribute("user");
+        List<ShareListInfo> shareListInfoList = shareService.getNewestShare(begin,length);
+        if(user != null){
+            shareService.setLikeAndCollectState(shareListInfoList, user.getId());
+        }
+        return shareListInfoList;
     }
-    //TODO
+
     @RequestMapping(value = "/getfavoriteshare", method = RequestMethod.GET)
-    public List<ShareListInfo> getFavoriteShare(@RequestParam long begin, @RequestParam long length){
-        return shareService.getFavoriteShare(begin,length);
+    public List<ShareListInfo> getFavoriteShare(@RequestParam long begin, @RequestParam long length, HttpSession session){
+        SystemUser user = (SystemUser) session.getAttribute("user");
+        List<ShareListInfo> shareListInfoList = shareService.getFavoriteShare(begin,length);
+        if(user != null){
+            shareService.setLikeAndCollectState(shareListInfoList, user.getId());
+        }
+        return shareListInfoList;
     }
 
     @RequestMapping(value = "/setsharestate", method = RequestMethod.GET)
     public boolean setShareState(@RequestParam long shareId, @RequestParam String state){
         return shareService.setShareState(shareId,state);
     }
-    //TODO
+
     @RequestMapping(value = "/searchshare", method = RequestMethod.GET)
-    public List<ShareListInfo> searchShare(@RequestParam String content){
-        return shareService.searchShare(content);
+    public List<ShareListInfo> searchShare(@RequestParam String content, HttpSession session){
+        SystemUser user = (SystemUser) session.getAttribute("user");
+        List<ShareListInfo> shareListInfoList = shareService.searchShare(content);
+        if(user != null){
+            shareService.setLikeAndCollectState(shareListInfoList, user.getId());
+        }
+        return shareListInfoList;
     }
 
     @RequestMapping(value = "/deletepicture", method = RequestMethod.GET)

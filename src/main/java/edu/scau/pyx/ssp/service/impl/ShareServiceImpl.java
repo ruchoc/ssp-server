@@ -2,6 +2,8 @@ package edu.scau.pyx.ssp.service.impl;
 
 import edu.scau.pyx.ssp.entity.Share;
 import edu.scau.pyx.ssp.entity.ShareListInfo;
+import edu.scau.pyx.ssp.mapper.CollectMapper;
+import edu.scau.pyx.ssp.mapper.LikeMapper;
 import edu.scau.pyx.ssp.mapper.SensitiveKeywordMapper;
 import edu.scau.pyx.ssp.mapper.ShareMapper;
 import edu.scau.pyx.ssp.service.ShareService;
@@ -22,6 +24,10 @@ public class ShareServiceImpl implements ShareService {
     private SensitiveKeywordMapper sensitiveKeywordMapper;
     @Autowired
     private RedisTemplate<String,String> redisTemplate;
+    @Autowired
+    private LikeMapper likeMapper;
+    @Autowired
+    private CollectMapper collectMapper;
 
     @Override
     public long publish(Share share) {
@@ -105,6 +111,23 @@ public class ShareServiceImpl implements ShareService {
     @Override
     public long getMyShareNum(long userId) {
         return shareMapper.getMyShareNum(userId);
+    }
+    //TODO
+    @Override
+    public void setLikeAndCollectState(ShareListInfo shareListInfo, long userId) {
+        if(likeMapper.isLiked(shareListInfo.getId(), userId)==1){
+            shareListInfo.setLiked(true);
+        }
+        if(collectMapper.isCollected(shareListInfo.getId(), userId)==1){
+            shareListInfo.setCollected(true);
+        }
+    }
+    //TODO
+    @Override
+    public void setLikeAndCollectState(List<ShareListInfo> shareListInfoList, long userId) {
+        for(ShareListInfo shareListInfo : shareListInfoList){
+            setLikeAndCollectState(shareListInfo, userId);
+        }
     }
 
     private void addHotSearch(String hotSearch){

@@ -29,4 +29,8 @@ public interface ShareService {
     public long getPublicShareNum();
 
     public long getMyShareNum(long userId);
+
+    public void setLikeAndCollectState(ShareListInfo shareListInfo, long userId);
+
+    public void setLikeAndCollectState(List<ShareListInfo> shareListInfoList, long userId);
 }

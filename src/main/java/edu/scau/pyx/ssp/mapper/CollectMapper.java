@@ -11,4 +11,6 @@ public interface CollectMapper {
     public boolean insert(Collect collect);
 
     public List<ShareListInfo> getCollectList(long userId);
+
+    public int isCollected(long shareId, long userId);
 }
