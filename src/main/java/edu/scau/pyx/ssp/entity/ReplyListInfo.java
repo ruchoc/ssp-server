@@ -4,7 +4,9 @@ import java.util.Date;
 
 public class ReplyListInfo {
     private long id;
+    private long sendUserId;
     private String sendUserName;
+    private long acceptUserId;
     private String acceptUserName;
     private String content;
     private Date time;
@@ -12,9 +14,11 @@ public class ReplyListInfo {
     public ReplyListInfo() {
     }
 
-    public ReplyListInfo(long id, String sendUserName, String acceptUserName, String content, Date time) {
+    public ReplyListInfo(long id, long sendUserId, String sendUserName, long acceptUserId, String acceptUserName, String content, Date time) {
         this.id = id;
+        this.sendUserId = sendUserId;
         this.sendUserName = sendUserName;
+        this.acceptUserId = acceptUserId;
         this.acceptUserName = acceptUserName;
         this.content = content;
         this.time = time;
@@ -28,12 +32,28 @@ public class ReplyListInfo {
         this.id = id;
     }
 
+    public long getSendUserId() {
+        return sendUserId;
+    }
+
+    public void setSendUserId(long sendUserId) {
+        this.sendUserId = sendUserId;
+    }
+
     public String getSendUserName() {
         return sendUserName;
     }
 
     public void setSendUserName(String sendUserName) {
         this.sendUserName = sendUserName;
+    }
+
+    public long getAcceptUserId() {
+        return acceptUserId;
+    }
+
+    public void setAcceptUserId(long acceptUserId) {
+        this.acceptUserId = acceptUserId;
     }
 
     public String getAcceptUserName() {

@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class CommentListInfo {
     private long id;
+    private long userId;
     private String username;
     private String avatarUrl;
     private String content;
@@ -12,8 +13,9 @@ public class CommentListInfo {
     public CommentListInfo() {
     }
 
-    public CommentListInfo(long id, String username, String avatarUrl, String content, Date time) {
+    public CommentListInfo(long id, long userId, String username, String avatarUrl, String content, Date time) {
         this.id = id;
+        this.userId = userId;
         this.username = username;
         this.avatarUrl = avatarUrl;
         this.content = content;
@@ -26,6 +28,14 @@ public class CommentListInfo {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
