@@ -10,4 +10,6 @@ public interface CollectService {
     public boolean add(Collect collect);
 
     public List<ShareListInfo> getCollectList(long userId);
+
+    public boolean cancel(long shareId, long id);
 }

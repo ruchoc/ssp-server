@@ -106,9 +106,14 @@
         SET LIKENUM = LIKENUM-1
         WHERE ID = #{id};
     </update>
-    <update id="updateCollectNum">
+    <update id="increaseCollectNum">
         UPDATE T_SHARE
         SET COLLECTNUM = COLLECTNUM+1
+        WHERE ID = #{id};
+    </update>
+    <update id="decreaseCollectNum">
+        UPDATE T_SHARE
+        SET COLLECTNUM = COLLECTNUM-1
         WHERE ID = #{id};
     </update>
     <update id="updateCommentNum">

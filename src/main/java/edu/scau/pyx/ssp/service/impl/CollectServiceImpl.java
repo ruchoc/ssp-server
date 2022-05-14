@@ -18,12 +18,18 @@ public class CollectServiceImpl implements CollectService {
     private ShareMapper shareMapper;
 
     public boolean add(Collect collect){
-        shareMapper.updateCollectNum(collect.getShareId());
+        shareMapper.increaseCollectNum(collect.getShareId());
         return collectMapper.insert(collect);
     }
 
     @Override
     public List<ShareListInfo> getCollectList(long userId) {
         return collectMapper.getCollectList(userId);
+    }
+
+    @Override
+    public boolean cancel(long shareId, long userId) {
+        shareMapper.decreaseCollectNum(shareId);
+        return collectMapper.delete(shareId, userId);
     }
 }

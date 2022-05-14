@@ -33,7 +33,9 @@ public interface ShareMapper {
 
     public boolean decreaseLikeNum(long id);
 
-    public boolean updateCollectNum(long id);
+    public boolean increaseCollectNum(long id);
+
+    public boolean decreaseCollectNum(long id);
 
     public boolean updateCommentNum(long id);
 

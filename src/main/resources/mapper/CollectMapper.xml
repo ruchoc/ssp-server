@@ -6,6 +6,10 @@
         INSERT INTO T_COLLECT( USER_ID,SHARE_ID )
         VALUES ( #{userId},#{shareId} );
     </insert>
+    <delete id="delete">
+        DELETE FROM T_COLLECT
+        WHERE SHARE_ID = #{shareId} AND USER_ID = #{userId};
+    </delete>
     <select id="getCollectList" resultType="edu.scau.pyx.ssp.entity.ShareListInfo">
         SELECT S.ID AS id,
                U.`NAME` AS username,

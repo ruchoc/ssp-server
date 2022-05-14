@@ -13,4 +13,6 @@ public interface CollectMapper {
     public List<ShareListInfo> getCollectList(long userId);
 
     public int isCollected(long shareId, long userId);
+
+    public boolean delete(long shareId, long userId);
 }
