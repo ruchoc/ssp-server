@@ -1,11 +1,8 @@
 package edu.scau.pyx.ssp.controller;
 
-import com.sun.deploy.net.HttpResponse;
-import edu.scau.pyx.ssp.entity.Follow;
 import edu.scau.pyx.ssp.entity.SystemUser;
 import edu.scau.pyx.ssp.entity.UserInfo;
 import edu.scau.pyx.ssp.entity.UserListInfo;
-import edu.scau.pyx.ssp.service.FollowService;
 import edu.scau.pyx.ssp.service.UserInfoService;
 import edu.scau.pyx.ssp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.Response;
 import java.util.List;
 
 @RestController
@@ -26,9 +22,6 @@ public class UserController {
 
     @Autowired
     private UserInfoService userInfoService;
-
-    @Autowired
-    private FollowService followService;
 
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public boolean registerUser(@RequestBody SystemUser user){
