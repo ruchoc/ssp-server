@@ -21,7 +21,7 @@ public interface ShareMapper {
 
     public boolean updateShareState(long shareId, String state);
 
-    public List<ShareListInfo> searchShare(String content);
+    public List<ShareListInfo> searchShare(String content,long begin,long length);
 
     boolean updateContent(String content, long id);
 
@@ -44,4 +44,6 @@ public interface ShareMapper {
     public long getPublicShareNum();
 
     public long getMyShareNum(long userId);
+
+    public long getSearchShareNum(String content);
 }

@@ -70,13 +70,13 @@ public class ShareServiceImpl implements ShareService {
     }
 
     @Override
-    public List<ShareListInfo> searchShare(String content) {
+    public List<ShareListInfo> searchShare(String content,long begin,long length) {
         addHotSearch(content);
         StringBuilder sb = new StringBuilder("%");
         sb.append(content);
         sb.append("%");
         content = sb.toString();
-        List<ShareListInfo> shareList = shareMapper.searchShare(content);
+        List<ShareListInfo> shareList = shareMapper.searchShare(content,begin,length);
         for(ShareListInfo shareListInfo : shareList){
             shareListInfo.setPictureList(shareMapper.getSharePictureList(shareListInfo.getId()));
         }
@@ -128,6 +128,15 @@ public class ShareServiceImpl implements ShareService {
         for(ShareListInfo shareListInfo : shareListInfoList){
             setLikeAndCollectState(shareListInfo, userId);
         }
+    }
+
+    @Override
+    public long getSearchShareNum(String content) {
+        StringBuilder sb = new StringBuilder("%");
+        sb.append(content);
+        sb.append("%");
+        content = sb.toString();
+        return shareMapper.getSearchShareNum(content);
     }
 
     private void addHotSearch(String hotSearch){

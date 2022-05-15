@@ -108,7 +108,13 @@
 		    S.COMMENTNUM AS commentNum
         FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I
         WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.CONTENT LIKE #{content} AND U.LOCKED=0 AND S.STATE!='private' AND S.STATE!='deleted'
-        ORDER BY S.TIME DESC;
+        ORDER BY S.TIME DESC
+        LIMIT #{begin},#{length};
+    </select>
+    <select id="getSearchShareNum" resultType="long">
+        SELECT COUNT(*)
+        FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I
+        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.CONTENT LIKE #{content} AND U.LOCKED=0 AND S.STATE!='private' AND S.STATE!='deleted';
     </select>
     <update id="updateContent">
         UPDATE T_SHARE

@@ -92,13 +92,18 @@ public class ShareController {
     }
 
     @RequestMapping(value = "/searchshare", method = RequestMethod.GET)
-    public List<ShareListInfo> searchShare(@RequestParam String content, HttpSession session){
+    public List<ShareListInfo> searchShare(@RequestParam String content, @RequestParam long begin, @RequestParam long length, HttpSession session){
         SystemUser user = (SystemUser) session.getAttribute("user");
-        List<ShareListInfo> shareListInfoList = shareService.searchShare(content);
+        List<ShareListInfo> shareListInfoList = shareService.searchShare(content,begin,length);
         if(user != null){
             shareService.setLikeAndCollectState(shareListInfoList, user.getId());
         }
         return shareListInfoList;
+    }
+
+    @RequestMapping(value = "getsearchsharenum", method = RequestMethod.GET)
+    public long getSearchShareNum(@RequestParam String content){
+        return shareService.getSearchShareNum(content);
     }
 
     @RequestMapping(value = "/deletepicture", method = RequestMethod.GET)

@@ -16,7 +16,7 @@ public interface ShareService {
 
     public boolean setShareState(long shareId, String state);
 
-    public List<ShareListInfo> searchShare(String content);
+    public List<ShareListInfo> searchShare(String content,long begin,long length);
 
     public boolean updateContent(Share share);
 
@@ -33,4 +33,6 @@ public interface ShareService {
     public void setLikeAndCollectState(ShareListInfo shareListInfo, long userId);
 
     public void setLikeAndCollectState(List<ShareListInfo> shareListInfoList, long userId);
+
+    public long getSearchShareNum(String content);
 }
