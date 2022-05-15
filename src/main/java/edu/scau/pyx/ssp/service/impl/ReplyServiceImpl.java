@@ -15,6 +15,9 @@ public class ReplyServiceImpl implements ReplyService {
     private ReplyMapper replyMapper;
     @Override
     public boolean publishReply(Reply reply) {
+        if(reply.getAcceptUserId()==0){
+            return replyMapper.insertReplyWithoutAcceptUserId(reply);
+        }
         return replyMapper.insertReply(reply);
     }
 

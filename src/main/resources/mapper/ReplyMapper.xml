@@ -6,6 +6,10 @@
         INSERT INTO T_REPLY( CONTENT,SEND_USER_ID,ACCEPT_USER_ID,COMMENT_ID )
         VALUES ( #{content},#{sendUserId},#{acceptUserId},#{commentId} );
     </insert>
+    <insert id="insertReplyWithoutAcceptUserId">
+        INSERT INTO T_REPLY( CONTENT,SEND_USER_ID,COMMENT_ID )
+        VALUES ( #{content},#{sendUserId},#{commentId} );
+    </insert>
     <!-->
     <select id="getReply" resultType="edu.scau.pyx.ssp.entity.ReplyListInfo">
         SELECT R.ID AS id,
