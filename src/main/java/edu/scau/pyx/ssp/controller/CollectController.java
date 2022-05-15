@@ -31,14 +31,23 @@ public class CollectController {
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public List<ShareListInfo> get(HttpSession session){
+    public List<ShareListInfo> get(@RequestParam long begin, @RequestParam long length, HttpSession session){
         SystemUser user = (SystemUser) session.getAttribute("user");
         if(user == null){
             return null;
         }
-        List<ShareListInfo> shareListInfoList = collectService.getCollectList(((SystemUser)session.getAttribute("user")).getId());
+        List<ShareListInfo> shareListInfoList = collectService.getCollectList(begin,length,user.getId());
         shareService.setLikeAndCollectState(shareListInfoList, user.getId());
         return shareListInfoList;
+    }
+
+    @RequestMapping(value = "/getcollectnum", method = RequestMethod.GET)
+    public long getCollectNum(HttpSession session){
+        SystemUser user = (SystemUser) session.getAttribute("user");
+        if(user == null){
+            return 0;
+        }
+        return collectService.getCollectNum(user.getId());
     }
 
     @RequestMapping(value = "/cancel/{shareId}", method = RequestMethod.DELETE)

@@ -9,7 +9,9 @@ import java.util.List;
 public interface CollectService {
     public boolean add(Collect collect);
 
-    public List<ShareListInfo> getCollectList(long userId);
+    public List<ShareListInfo> getCollectList(long begin, long length, long userId);
 
     public boolean cancel(long shareId, long id);
+
+    public long getCollectNum(long id);
 }

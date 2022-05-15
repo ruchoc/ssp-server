@@ -23,13 +23,18 @@ public class CollectServiceImpl implements CollectService {
     }
 
     @Override
-    public List<ShareListInfo> getCollectList(long userId) {
-        return collectMapper.getCollectList(userId);
+    public List<ShareListInfo> getCollectList(long begin, long length, long userId) {
+        return collectMapper.getCollectList(begin, length, userId);
     }
 
     @Override
     public boolean cancel(long shareId, long userId) {
         shareMapper.decreaseCollectNum(shareId);
         return collectMapper.delete(shareId, userId);
+    }
+
+    @Override
+    public long getCollectNum(long id) {
+        return collectMapper.getCollectNum(id);
     }
 }

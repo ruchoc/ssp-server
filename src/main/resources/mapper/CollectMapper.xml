@@ -22,11 +22,17 @@
                S.COMMENTNUM AS commentNum
         FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I,T_COLLECT AS C,T_USER AS SU
         WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND C.SHARE_ID=S.ID AND C.USER_ID=#{userId} AND S.STATE!='private' AND S.STATE!='deleted'  AND S.USER_ID=SU.ID AND SU.LOCKED=0
-        ORDER BY C.COLLECT_TIME DESC;
+        ORDER BY C.COLLECT_TIME DESC
+        LIMIT #{begin},#{length};
     </select>
     <select id="isCollected" resultType="int">
         SELECT COUNT(*)
         FROM T_COLLECT
         WHERE USER_ID = #{userId} AND SHARE_ID = #{shareId};
+    </select>
+    <select id="getCollectNum" resultType="long">
+        SELECT COUNT(*)
+        FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I,T_COLLECT AS C,T_USER AS SU
+        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND C.SHARE_ID=S.ID AND C.USER_ID=#{userId} AND S.STATE!='private' AND S.STATE!='deleted'  AND S.USER_ID=SU.ID AND SU.LOCKED=0
     </select>
 </mapper>

@@ -10,9 +10,11 @@ import java.util.List;
 public interface CollectMapper {
     public boolean insert(Collect collect);
 
-    public List<ShareListInfo> getCollectList(long userId);
+    public List<ShareListInfo> getCollectList(long begin, long length, long userId);
 
     public int isCollected(long shareId, long userId);
 
     public boolean delete(long shareId, long userId);
+
+    public long getCollectNum(long id);
 }
