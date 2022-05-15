@@ -13,6 +13,7 @@
                I.AVATAR_URL AS userAvatarUrl,
                S.TIME AS time,
                S.CONTENT AS content,
+               S.STATE AS state,
                S.LIKENUM AS likeNum,
                S.COLLECTNUM AS collectNum,
                S.COMMENTNUM AS commentNum
@@ -26,6 +27,7 @@
                I.AVATAR_URL AS userAvatarUrl,
                S.TIME AS time,
                S.CONTENT AS content,
+               S.STATE AS state,
                S.LIKENUM AS likeNum,
                S.COLLECTNUM AS collectNum,
                S.COMMENTNUM AS commentNum
@@ -40,9 +42,18 @@
         WHERE SHARE_ID = #{shareId};
     </select>
     <select id="getMyShareList" resultType="edu.scau.pyx.ssp.entity.ShareListInfo">
-        SELECT S.ID AS id,U.ID AS userId, U.`NAME` AS username, I.AVATAR_URL AS userAvatarUrl, S.TIME AS time, S.CONTENT AS content, S.LIKENUM AS likeNum, S.COLLECTNUM AS collectNum, S.COMMENTNUM AS commentNum
+        SELECT S.ID AS id,
+               U.ID AS userId,
+               U.`NAME` AS username,
+               I.AVATAR_URL AS userAvatarUrl,
+               S.TIME AS time,
+               S.CONTENT AS content,
+               S.STATE AS state,
+               S.LIKENUM AS likeNum,
+               S.COLLECTNUM AS collectNum,
+               S.COMMENTNUM AS commentNum
         FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I
-        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.USER_ID=#{userId} AND U.LOCKED=0
+        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.USER_ID=#{userId} AND U.LOCKED=0 AND S.STATE!='public'
         ORDER BY S.TIME DESC
         LIMIT #{begin},#{length};
     </select>
@@ -53,6 +64,7 @@
                I.AVATAR_URL AS userAvatarUrl,
                S.TIME AS time,
                S.CONTENT AS content,
+               S.STATE AS state,
                S.LIKENUM AS likeNum,
                S.COLLECTNUM AS collectNum,
                S.COMMENTNUM AS commentNum
@@ -68,6 +80,7 @@
                I.AVATAR_URL AS userAvatarUrl,
                S.TIME AS time,
                S.CONTENT AS content,
+               S.STATE AS state,
                S.LIKENUM AS likeNum,
                S.COLLECTNUM AS collectNum,
                S.COMMENTNUM AS commentNum
@@ -89,11 +102,12 @@
             I.AVATAR_URL AS userAvatarUrl,
             S.TIME AS time,
 		    S.CONTENT AS content,
+		    S.STATE AS state,
 		    S.LIKENUM AS likeNum,
 		    S.COLLECTNUM AS collectNum,
 		    S.COMMENTNUM AS commentNum
         FROM T_SHARE AS S,T_USER AS U,T_USER_INFO AS I
-        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.CONTENT LIKE #{content} AND U.LOCKED=0
+        WHERE S.USER_ID=U.ID AND U.ID=I.USER_ID AND S.CONTENT LIKE #{content} AND U.LOCKED=0 AND S.STATE='public'
         ORDER BY S.TIME DESC;
     </select>
     <update id="updateContent">

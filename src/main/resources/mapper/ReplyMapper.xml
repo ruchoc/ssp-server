@@ -20,12 +20,6 @@
         WHERE U1.ID=R.SEND_USER_ID AND R.ACCEPT_USER_ID=U2.ID AND R.COMMENT_ID=#{commentId} AND U1.ID = I1.USER_ID AND U2.ID = I2.USER_ID
         ORDER BY R.TIME DESC
         LIMIT #{begin},#{length};
-
-        SELECT C.ID AS id, U.ID AS userId, U.`NAME` AS username, I.AVATAR_URL AS avatarUrl, C.CONTENT AS content, C.TIME AS time
-        FROM T_COMMENT AS C,T_USER AS U,T_USER_INFO AS I
-        WHERE C.USER_ID=U.ID AND U.ID = I.USER_ID AND C.SHARE_ID = #{shareId}
-        ORDER BY C.TIME DESC
-            LIMIT #{begin},#{length};
     </select>
     <select id="getReplyNum" resultType="long">
         SELECT COUNT(*)

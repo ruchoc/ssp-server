@@ -16,6 +16,7 @@
                I.AVATAR_URL AS userAvatarUrl,
                S.TIME AS time,
                S.CONTENT AS content,
+               S.STATE AS state,
                S.LIKENUM AS likeNum,
                S.COLLECTNUM AS collectNum,
                S.COMMENTNUM AS commentNum
