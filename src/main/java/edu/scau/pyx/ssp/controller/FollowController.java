@@ -18,22 +18,38 @@ public class FollowController {
 
     @RequestMapping(value = "/follow", method = RequestMethod.POST)
     public boolean follow(@RequestBody Follow follow, HttpSession session){
-        follow.setFromUserId(((SystemUser)session.getAttribute("user")).getId());
+        SystemUser user = (SystemUser) session.getAttribute("user");
+        if(user == null){
+            return false;
+        }
+        follow.setFromUserId(user.getId());
         return followService.insertFollow(follow.getFromUserId(),follow.getToUserId());
     }
 
     @RequestMapping(value = "/cancel/{toUserId}", method = RequestMethod.DELETE)
     public boolean cancel(@PathVariable("toUserId") long toUserId, HttpSession session){
-        return followService.deleteFollow(((SystemUser)session.getAttribute("user")).getId(),toUserId);
+        SystemUser user = (SystemUser) session.getAttribute("user");
+        if(user == null){
+            return false;
+        }
+        return followService.deleteFollow(user.getId(),toUserId);
     }
 
     @RequestMapping(value = "/getfollowinguser", method = RequestMethod.GET)
     public List<UserListInfo> getFollowingUser(HttpSession session){
-        return followService.getFollowingUser(((SystemUser)session.getAttribute("user")).getId());
+        SystemUser user = (SystemUser) session.getAttribute("user");
+        if(user == null){
+            return null;
+        }
+        return followService.getFollowingUser(user.getId());
     }
 
     @RequestMapping(value = "/getfans", method = RequestMethod.GET)
     public List<UserListInfo> getFans(HttpSession session){
-        return followService.getFans(((SystemUser)session.getAttribute("user")).getId());
+        SystemUser user = (SystemUser) session.getAttribute("user");
+        if(user == null){
+            return null;
+        }
+        return followService.getFans(user.getId());
     }
 }

@@ -22,7 +22,11 @@ public class CollectController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public boolean add(@RequestBody Collect collect,HttpSession session){
-        collect.setUserId(((SystemUser)session.getAttribute("user")).getId());
+        SystemUser user = (SystemUser) session.getAttribute("user");
+        if(user == null){
+            return false;
+        }
+        collect.setUserId(user.getId());
         return collectService.add(collect);
     }
 

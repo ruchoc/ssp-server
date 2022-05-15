@@ -17,7 +17,11 @@ public class LikeController {
 
     @RequestMapping(value = "/add")
     public boolean add(@RequestBody Like like, HttpSession session){
-        like.setUserId(((SystemUser)session.getAttribute("user")).getId());
+        SystemUser user = (SystemUser) session.getAttribute("user");
+        if(user == null){
+            return false;
+        }
+        like.setUserId(user.getId());
         return likeService.add(like);
     }
 

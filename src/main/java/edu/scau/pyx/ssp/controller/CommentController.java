@@ -18,7 +18,11 @@ public class CommentController {
 
     @RequestMapping(value = "/publish", method = RequestMethod.POST)
     public boolean publish(@RequestBody Comment comment, HttpSession session){
-        comment.setUserId(((SystemUser)session.getAttribute("user")).getId());
+        SystemUser user = (SystemUser) session.getAttribute("user");
+        if(user == null){
+            return false;
+        }
+        comment.setUserId(user.getId());
         return commentService.publishComment(comment);
     }
 

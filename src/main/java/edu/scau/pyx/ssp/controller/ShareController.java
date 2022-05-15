@@ -23,7 +23,10 @@ public class ShareController {
 
     @RequestMapping(value = "/publish", method = RequestMethod.POST)
     public long publish(@RequestBody Share share, HttpSession session){
-        SystemUser user =((SystemUser)session.getAttribute("user"));
+        SystemUser user = (SystemUser) session.getAttribute("user");
+        if(user == null){
+            return -1;
+        }
         if(user.isLocked()){
             return -1;
         }
@@ -120,6 +123,10 @@ public class ShareController {
 
     @RequestMapping(value = "/getmysharenum", method = RequestMethod.GET)
     public long getMyShareNum(HttpSession session){
-        return shareService.getMyShareNum(((SystemUser)session.getAttribute("user")).getId());
+        SystemUser user = (SystemUser) session.getAttribute("user");
+        if(user == null){
+            return 0;
+        }
+        return shareService.getMyShareNum(user.getId());
     }
 }

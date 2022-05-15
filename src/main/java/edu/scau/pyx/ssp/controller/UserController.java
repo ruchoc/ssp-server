@@ -73,17 +73,27 @@ public class UserController {
 
     @RequestMapping(value = "/updateusername",method = RequestMethod.POST)
     public boolean updateUsername(@RequestBody SystemUser user,HttpSession session){
+        if((SystemUser) session.getAttribute("user") == null){
+            return false;
+        }
         return userService.updateUsername(((SystemUser)session.getAttribute("user")).getId(), user.getName());
     }
 
     @RequestMapping(value = "/updateuserpassword",method = RequestMethod.POST)
     public boolean updateUserPassword(@RequestBody SystemUser user,HttpSession session){
+        if((SystemUser) session.getAttribute("user") == null){
+            return false;
+        }
         return userService.updateUserPassword(((SystemUser)session.getAttribute("user")).getId(), user.getPassword());
     }
 
     @RequestMapping(value = "/updateuserinfo",method = RequestMethod.POST)
     public boolean updateUserInfo(@RequestBody UserInfo userInfo,HttpSession session){
-        userInfo.setUserId(((SystemUser)session.getAttribute("user")).getId());
+        SystemUser user = ((SystemUser) session.getAttribute("user"));
+        if(user == null){
+            return false;
+        }
+        userInfo.setUserId(user.getId());
         return userInfoService.updateUserInfo(userInfo);
     }
 

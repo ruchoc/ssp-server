@@ -19,7 +19,11 @@ public class ReplyController {
 
     @RequestMapping(value = "/publish", method = RequestMethod.POST)
     public boolean publish(@RequestBody Reply reply, HttpSession session){
-        reply.setSendUserId(((SystemUser)session.getAttribute("user")).getId());
+        SystemUser user = (SystemUser) session.getAttribute("user");
+        if(user == null){
+            return false;
+        }
+        reply.setSendUserId(user.getId());
         return replyService.publishReply(reply);
     }
 
