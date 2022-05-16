@@ -4,14 +4,16 @@ public class UserListInfo {
     private long userId;
     private String username;
     private String avatarUrl;
+    private boolean locked;
 
     public UserListInfo() {
     }
 
-    public UserListInfo(long userId, String username, String avatarUrl) {
+    public UserListInfo(long userId, String username, String avatarUrl, boolean locked) {
         this.userId = userId;
         this.username = username;
         this.avatarUrl = avatarUrl;
+        this.locked = locked;
     }
 
     public long getUserId() {
@@ -36,5 +38,13 @@ public class UserListInfo {
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 }

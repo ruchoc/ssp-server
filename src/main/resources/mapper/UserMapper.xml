@@ -7,7 +7,8 @@
             ID AS id,
             NAME AS name,
             PASSWORD AS password,
-            LOCKED AS locked
+            LOCKED AS locked,
+            ROLE AS role
         FROM
             T_USER
         WHERE
@@ -18,7 +19,8 @@
             ID AS id,
             NAME AS name,
             PASSWORD AS password,
-            LOCKED AS locked
+            LOCKED AS locked,
+            ROLE AS role
         FROM
             T_USER
         WHERE
@@ -53,21 +55,30 @@
         SELECT
             U.ID AS userId,
             U.`NAME` AS username,
-            I.AVATAR_URL AS avatarUrl
+            I.AVATAR_URL AS avatarUrl,
+            U.LOCKED AS locked
         FROM T_USER AS U,T_USER_INFO AS I
-        WHERE U.ID=I.USER_ID AND U.`NAME` LIKE #{username};
+        WHERE U.ID=I.USER_ID AND U.`NAME` LIKE #{username} AND ROLE = 'USER'
+        LIMIT #{begin},#{length};
+    </select>
+    <select id="getSearchUserNum" resultType="long">
+        SELECT COUNT(*)
+        FROM T_USER AS U
+        WHERE U.`NAME` LIKE #{username} AND ROLE = 'USER';
     </select>
     <select id="getUserList" resultType="edu.scau.pyx.ssp.entity.UserListInfo">
         SELECT
             U.ID AS userId,
             U.`NAME` AS username,
-            I.AVATAR_URL AS avatarUrl
+            I.AVATAR_URL AS avatarUrl,
+            U.LOCKED AS locked
         FROM T_USER AS U,T_USER_INFO AS I
-        WHERE U.ID=I.USER_ID
+        WHERE U.ID=I.USER_ID AND ROLE = 'USER'
         LIMIT #{begin},#{length};
     </select>
     <select id="getUserNum" resultType="long">
         SELECT COUNT(*)
-        FROM T_USER;
+        FROM T_USER
+        WHERE ROLE = 'USER';
     </select>
 </mapper>

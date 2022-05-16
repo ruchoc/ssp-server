@@ -24,7 +24,7 @@ public class ShareController {
     @RequestMapping(value = "/publish", method = RequestMethod.POST)
     public long publish(@RequestBody Share share, HttpSession session){
         SystemUser user = (SystemUser) session.getAttribute("user");
-        if(user == null){
+        if(user == null || !user.getRole().equals("user")){
             return -1;
         }
         if(user.isLocked()){
@@ -58,7 +58,7 @@ public class ShareController {
     @RequestMapping(value = "/getmysharelist", method = RequestMethod.GET)
     public List<ShareListInfo> getMyShareList(HttpSession session,@RequestParam long begin, @RequestParam long length){
         SystemUser user = (SystemUser) session.getAttribute("user");
-        if(user == null){
+        if(user == null || !user.getRole().equals("user")){
             return null;
         }
         List<ShareListInfo> shareListInfoList = shareService.getMyShareList(((SystemUser)session.getAttribute("user")).getId(),begin,length);
@@ -129,7 +129,7 @@ public class ShareController {
     @RequestMapping(value = "/getmysharenum", method = RequestMethod.GET)
     public long getMyShareNum(HttpSession session){
         SystemUser user = (SystemUser) session.getAttribute("user");
-        if(user == null){
+        if(user == null || !user.getRole().equals("user")){
             return 0;
         }
         return shareService.getMyShareNum(user.getId());

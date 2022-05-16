@@ -90,7 +90,7 @@ public class UserController {
     @RequestMapping(value = "/updateuserinfo",method = RequestMethod.POST)
     public boolean updateUserInfo(@RequestBody UserInfo userInfo,HttpSession session){
         SystemUser user = ((SystemUser) session.getAttribute("user"));
-        if(user == null){
+        if(user == null || !user.getRole().equals("user")){
             return false;
         }
         userInfo.setUserId(user.getId());
@@ -98,7 +98,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "/searchuser" ,method = RequestMethod.GET)
-    public List<UserListInfo> searchUser(@RequestParam String username){
-        return userService.searchUser(username);
+    public List<UserListInfo> searchUser(@RequestParam String username,@RequestParam long begin,@RequestParam long length){
+        return userService.searchUser(username, begin, length);
+    }
+
+    @RequestMapping(value = "/getsearchusernum" ,method = RequestMethod.GET)
+    public long getSearchUserNum(@RequestParam String username){
+        return userService.getSearchUserNum(username);
     }
 }

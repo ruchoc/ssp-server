@@ -27,7 +27,21 @@ public class UserServiceImpl implements UserService {
         if(matchUser==null){
             return false;
         }
-        if(systemUser.getPassword().equals(matchUser.getPassword())==true){
+        if(systemUser.getPassword().equals(matchUser.getPassword())==true&&matchUser.getRole()=="user"){
+            session.setAttribute("user",matchUser);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean adminSignIn(SystemUser systemUser, HttpSession session) {
+        SystemUser matchUser = userMapper.getUserByUserName(systemUser.getName());
+        if(matchUser==null){
+            return false;
+        }
+        if(systemUser.getPassword().equals(matchUser.getPassword())==true&&matchUser.getRole().equals("admin")){
             session.setAttribute("user",matchUser);
             return true;
         } else {
@@ -61,14 +75,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserListInfo> searchUser(String username) {
+    public List<UserListInfo> searchUser(String username, long begin, long length) {
         StringBuffer sb = new StringBuffer("%");
         for(int i=0;i<username.length();i++){
             sb.append(username.charAt(i));
             sb.append('%');
         }
         username = sb.toString();
-        return userMapper.searchUser(username);
+        return userMapper.searchUser(username,begin,length);
+    }
+
+    @Override
+    public long getSearchUserNum(String username) {
+        StringBuffer sb = new StringBuffer("%");
+        for(int i=0;i<username.length();i++){
+            sb.append(username.charAt(i));
+            sb.append('%');
+        }
+        username = sb.toString();
+        return userMapper.getSearchUserNum(username);
     }
 
     @Override

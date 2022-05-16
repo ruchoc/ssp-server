@@ -7,20 +7,17 @@ public class SystemUser {
     private String name;
     private String password;
     private boolean locked;
+    private String role;
 
     public SystemUser() {
     }
 
-    public SystemUser(long id, String name, String password, boolean locked) {
+    public SystemUser(long id, String name, String password, boolean locked, String role) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.locked = locked;
-    }
-
-    public SystemUser(String name, String password) {
-        this.name = name;
-        this.password = password;
+        this.role = role;
     }
 
     public long getId() {
@@ -53,5 +50,13 @@ public class SystemUser {
 
     public void setLocked(boolean locked) {
         this.locked = locked;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

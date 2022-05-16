@@ -23,7 +23,7 @@ public class CollectController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public boolean add(@RequestBody Collect collect,HttpSession session){
         SystemUser user = (SystemUser) session.getAttribute("user");
-        if(user == null){
+        if(user == null || !user.getRole().equals("user")){
             return false;
         }
         collect.setUserId(user.getId());
@@ -33,7 +33,7 @@ public class CollectController {
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public List<ShareListInfo> get(@RequestParam long begin, @RequestParam long length, HttpSession session){
         SystemUser user = (SystemUser) session.getAttribute("user");
-        if(user == null){
+        if(user == null || !user.getRole().equals("user")){
             return null;
         }
         List<ShareListInfo> shareListInfoList = collectService.getCollectList(begin,length,user.getId());
@@ -44,7 +44,7 @@ public class CollectController {
     @RequestMapping(value = "/getcollectnum", method = RequestMethod.GET)
     public long getCollectNum(HttpSession session){
         SystemUser user = (SystemUser) session.getAttribute("user");
-        if(user == null){
+        if(user == null || !user.getRole().equals("user")){
             return 0;
         }
         return collectService.getCollectNum(user.getId());
@@ -53,7 +53,7 @@ public class CollectController {
     @RequestMapping(value = "/cancel/{shareId}", method = RequestMethod.DELETE)
     public boolean cancel(@PathVariable long shareId, HttpSession session){
         SystemUser user = (SystemUser) session.getAttribute("user");
-        if(user == null){
+        if(user == null || !user.getRole().equals("user")){
             return false;
         }
         return collectService.cancel(shareId,user.getId());

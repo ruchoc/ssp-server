@@ -22,11 +22,15 @@ public interface UserService {
 
     public long getUserId(String username);
 
-    public List<UserListInfo> searchUser(String username);
+    public List<UserListInfo> searchUser(String username, long begin, long length);
 
     public SystemUser getUserByUsername(String username);
 
     public List<UserListInfo> getUserList(long begin, long length);
 
     public long getUserNum();
+
+    public boolean adminSignIn(SystemUser user, HttpSession session);
+
+    public long getSearchUserNum(String username);
 }

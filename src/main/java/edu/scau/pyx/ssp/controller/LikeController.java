@@ -18,7 +18,7 @@ public class LikeController {
     @RequestMapping(value = "/add")
     public boolean add(@RequestBody Like like, HttpSession session){
         SystemUser user = (SystemUser) session.getAttribute("user");
-        if(user == null){
+        if(user == null || !user.getRole().equals("user")){
             return false;
         }
         like.setUserId(user.getId());
@@ -28,7 +28,7 @@ public class LikeController {
     @RequestMapping(value = "/cancel/{shareId}",method = RequestMethod.DELETE)
     public boolean cancel(@PathVariable long shareId, HttpSession session){
         SystemUser user = (SystemUser) session.getAttribute("user");
-        if(user==null){
+        if(user==null || !user.getRole().equals("user")){
             return false;
         }
         return likeService.cancel(shareId,user.getId());

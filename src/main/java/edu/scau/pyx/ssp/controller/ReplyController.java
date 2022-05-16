@@ -20,7 +20,7 @@ public class ReplyController {
     @RequestMapping(value = "/publish", method = RequestMethod.POST)
     public boolean publish(@RequestBody Reply reply, HttpSession session){
         SystemUser user = (SystemUser) session.getAttribute("user");
-        if(user == null){
+        if(user == null || !user.getRole().equals("user")){
             return false;
         }
         reply.setSendUserId(user.getId());
