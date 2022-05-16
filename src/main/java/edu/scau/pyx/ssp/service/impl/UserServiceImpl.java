@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
         if(matchUser==null){
             return false;
         }
-        if(systemUser.getPassword().equals(matchUser.getPassword())==true&&matchUser.getRole()=="user"){
+        if(systemUser.getPassword().equals(matchUser.getPassword())==true&&matchUser.getRole().equals("user")){
             session.setAttribute("user",matchUser);
             return true;
         } else {
