@@ -15,4 +15,13 @@
         FROM T_LIKE
         WHERE USER_ID = #{userId} AND SHARE_ID = #{shareId};
     </select>
+    <select id="getList" resultType="UserListInfo">
+        SELECT
+            U.ID AS userId,
+            U.`NAME` AS username,
+            I.AVATAR_URL AS avatarUrl,
+            U.LOCKED AS locked
+        FROM T_USER AS U,T_USER_INFO AS I,T_LIKE AS L
+        WHERE U.ID=I.USER_ID AND ROLE = 'USER' AND U.ID = L.USER_ID AND L.SHARE_ID = #{shareId};
+    </select>
 </mapper>

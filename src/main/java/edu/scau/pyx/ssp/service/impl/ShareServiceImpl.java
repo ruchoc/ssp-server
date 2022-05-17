@@ -90,12 +90,20 @@ public class ShareServiceImpl implements ShareService {
 
     @Override
     public List<ShareListInfo> getNewestShare(long begin, long length) {
-        return shareMapper.getNewestShare(begin,length);
+        List<ShareListInfo> shareList = shareMapper.getNewestShare(begin,length);
+        for(ShareListInfo shareListInfo : shareList){
+            shareListInfo.setPictureList(shareMapper.getSharePictureList(shareListInfo.getId()));
+        }
+        return shareList;
     }
 
     @Override
     public List<ShareListInfo> getFavoriteShare(long begin, long length) {
-        return shareMapper.getFavoriteShare(begin,length);
+        List<ShareListInfo> shareList = shareMapper.getFavoriteShare(begin,length);
+        for(ShareListInfo shareListInfo : shareList){
+            shareListInfo.setPictureList(shareMapper.getSharePictureList(shareListInfo.getId()));
+        }
+        return shareList;
     }
 
     @Override

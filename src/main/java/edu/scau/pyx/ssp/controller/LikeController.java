@@ -3,11 +3,13 @@ package edu.scau.pyx.ssp.controller;
 import com.mysql.cj.Session;
 import edu.scau.pyx.ssp.entity.Like;
 import edu.scau.pyx.ssp.entity.SystemUser;
+import edu.scau.pyx.ssp.entity.UserListInfo;
 import edu.scau.pyx.ssp.service.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/like")
@@ -32,5 +34,10 @@ public class LikeController {
             return false;
         }
         return likeService.cancel(shareId,user.getId());
+    }
+
+    @RequestMapping(value = "/getlist",method = RequestMethod.GET)
+    public List<UserListInfo> getList(@RequestParam long shareId){
+        return likeService.getList(shareId);
     }
 }

@@ -69,7 +69,7 @@
           AND T.commentId = #{commentId}
           AND U1.ID = I1.USER_ID
         ORDER BY
-            T.time DESC
+            T.time
             LIMIT #{begin},#{length};
     </select>
     <select id="getReplyNum" resultType="long">
