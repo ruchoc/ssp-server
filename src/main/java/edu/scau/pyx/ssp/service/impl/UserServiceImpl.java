@@ -4,6 +4,7 @@ import edu.scau.pyx.ssp.entity.SystemUser;
 import edu.scau.pyx.ssp.entity.UserListInfo;
 import edu.scau.pyx.ssp.mapper.UserMapper;
 import edu.scau.pyx.ssp.service.UserService;
+import edu.scau.pyx.ssp.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,16 +19,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean register(SystemUser systemUser) {
+        systemUser.setPassword(MD5Util.encode(systemUser.getPassword()));
         return userMapper.insertUser(systemUser);
     }
 
     @Override
     public boolean signIn(SystemUser systemUser, HttpSession session) {
+        systemUser.setPassword(MD5Util.encode(systemUser.getPassword()));
         SystemUser matchUser = userMapper.getUserByUserName(systemUser.getName());
         if(matchUser==null){
             return false;
         }
-        if(systemUser.getPassword().equals(matchUser.getPassword())==true&&matchUser.getRole().equals("user")){
+        if(systemUser.getPassword().equals(matchUser.getPassword()) &&matchUser.getRole().equals("user")){
             session.setAttribute("user",matchUser);
             return true;
         } else {
@@ -37,11 +40,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean adminSignIn(SystemUser systemUser, HttpSession session) {
+        systemUser.setPassword(MD5Util.encode(systemUser.getPassword()));
         SystemUser matchUser = userMapper.getUserByUserName(systemUser.getName());
         if(matchUser==null){
             return false;
         }
-        if(systemUser.getPassword().equals(matchUser.getPassword())==true&&matchUser.getRole().equals("admin")){
+        if(systemUser.getPassword().equals(matchUser.getPassword()) &&matchUser.getRole().equals("admin")){
             session.setAttribute("user",matchUser);
             return true;
         } else {
