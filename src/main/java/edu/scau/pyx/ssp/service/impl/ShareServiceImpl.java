@@ -85,6 +85,10 @@ public class ShareServiceImpl implements ShareService {
 
     @Override
     public boolean updateContent(Share share) {
+        long matchNum = sensitiveKeywordMapper.match(share.getContent());
+        if(matchNum!=0){
+            return false;
+        }
         return shareMapper.updateContent(share.getContent(),share.getId());
     }
 

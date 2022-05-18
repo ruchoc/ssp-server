@@ -19,6 +19,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean register(SystemUser systemUser) {
+        if(userMapper.getUserByUserName(systemUser.getName())!=null){
+            return false;
+        }
         systemUser.setPassword(MD5Util.encode(systemUser.getPassword()));
         return userMapper.insertUser(systemUser);
     }

@@ -25,7 +25,9 @@ public class UserController {
 
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public boolean registerUser(@RequestBody SystemUser user){
-        userService.register(user);
+        if(userService.register(user)==false){
+            return false;
+        }
         return userInfoService.insertUserInfo(userService.getUserId(user.getName()));
     }
 
