@@ -20,9 +20,10 @@ public class HotSearchServiceImpl implements HotSearchService {
     public List<HotSearch> getList() {
         List<HotSearch> hotSearchList = new ArrayList<>();
         Set<String> hotSearchSet = redisTemplate.opsForZSet().reverseRange("hotSearchSet", 0, 9);
+        assert hotSearchSet != null;
         Iterator<String> iterator = hotSearchSet.iterator();
         while (iterator.hasNext()){
-            String hotSearch = (String) iterator.next();
+            String hotSearch = iterator.next();
             long times = redisTemplate.opsForZSet().score("hotSearchSet",hotSearch).longValue();
             hotSearchList.add(new HotSearch(hotSearch,times));
         }

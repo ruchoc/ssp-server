@@ -1,6 +1,5 @@
 package edu.scau.pyx.ssp.mapper;
 
-import edu.scau.pyx.ssp.entity.SystemUser;
 import edu.scau.pyx.ssp.entity.UserListInfo;
 import org.apache.ibatis.annotations.Mapper;
 

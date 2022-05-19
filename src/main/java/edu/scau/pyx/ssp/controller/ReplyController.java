@@ -1,6 +1,5 @@
 package edu.scau.pyx.ssp.controller;
 
-import edu.scau.pyx.ssp.entity.CommentListInfo;
 import edu.scau.pyx.ssp.entity.Reply;
 import edu.scau.pyx.ssp.entity.ReplyListInfo;
 import edu.scau.pyx.ssp.entity.SystemUser;

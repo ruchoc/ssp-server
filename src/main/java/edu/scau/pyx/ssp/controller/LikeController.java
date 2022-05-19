@@ -1,6 +1,5 @@
 package edu.scau.pyx.ssp.controller;
 
-import com.mysql.cj.Session;
 import edu.scau.pyx.ssp.entity.Like;
 import edu.scau.pyx.ssp.entity.SystemUser;
 import edu.scau.pyx.ssp.entity.UserListInfo;

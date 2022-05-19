@@ -1,6 +1,5 @@
 package edu.scau.pyx.ssp.service.impl;
 
-import edu.scau.pyx.ssp.entity.SystemUser;
 import edu.scau.pyx.ssp.entity.UserListInfo;
 import edu.scau.pyx.ssp.mapper.FollowMapper;
 import edu.scau.pyx.ssp.service.FollowService;

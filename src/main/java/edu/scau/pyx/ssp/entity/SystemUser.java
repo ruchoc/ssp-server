@@ -1,7 +1,5 @@
 package edu.scau.pyx.ssp.entity;
 
-import java.util.Date;
-
 public class SystemUser {
     private long id;
     private String name;

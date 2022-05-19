@@ -6,8 +6,6 @@ import edu.scau.pyx.ssp.service.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.net.URL;
-
 @Service
 public class PictureServiceImpl implements PictureService {
     @Autowired

@@ -25,7 +25,7 @@ public class UserController {
 
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public boolean registerUser(@RequestBody SystemUser user){
-        if(userService.register(user)==false){
+        if(!userService.register(user)){
             return false;
         }
         return userInfoService.insertUserInfo(userService.getUserId(user.getName()));
@@ -75,7 +75,7 @@ public class UserController {
 
     @RequestMapping(value = "/updateusername",method = RequestMethod.POST)
     public boolean updateUsername(@RequestBody SystemUser user,HttpSession session){
-        if((SystemUser) session.getAttribute("user") == null){
+        if(session.getAttribute("user") == null){
             return false;
         }
         return userService.updateUsername(((SystemUser)session.getAttribute("user")).getId(), user.getName());
@@ -83,7 +83,7 @@ public class UserController {
 
     @RequestMapping(value = "/updateuserpassword",method = RequestMethod.POST)
     public boolean updateUserPassword(@RequestBody SystemUser user,HttpSession session){
-        if((SystemUser) session.getAttribute("user") == null){
+        if(session.getAttribute("user") == null){
             return false;
         }
         return userService.updateUserPassword(((SystemUser)session.getAttribute("user")).getId(), user.getPassword());

@@ -1,6 +1,5 @@
 package edu.scau.pyx.ssp.service;
 
-import edu.scau.pyx.ssp.entity.SystemUser;
 import edu.scau.pyx.ssp.entity.UserListInfo;
 
 import java.util.List;

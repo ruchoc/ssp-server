@@ -10,23 +10,6 @@
         INSERT INTO T_REPLY( CONTENT,SEND_USER_ID,COMMENT_ID )
         VALUES ( #{content},#{sendUserId},#{commentId} );
     </insert>
-    <!-->
-    <select id="getReply" resultType="edu.scau.pyx.ssp.entity.ReplyListInfo">
-        SELECT R.ID AS id,
-               U1.ID AS sendUserId,
-               U1.`NAME` AS sendUserName,
-               I1.AVATAR_URL AS sendUserAvatarUrl,
-               U2.ID AS acceptUserId,
-               U2.`NAME` AS acceptUserName,
-               I2.AVATAR_URL AS acceptUserAvatarUrl,
-               R.CONTENT AS content,
-               R.TIME AS time
-        FROM T_USER AS U1,T_REPLY AS R,T_USER AS U2,T_USER_INFO AS I1,T_USER_INFO AS I2
-        WHERE U1.ID=R.SEND_USER_ID AND R.ACCEPT_USER_ID=U2.ID AND R.COMMENT_ID=#{commentId} AND U1.ID = I1.USER_ID AND U2.ID = I2.USER_ID
-        ORDER BY R.TIME DESC
-        LIMIT #{begin},#{length};
-    </select>
-    <-->
     <select id="getReply" resultType="edu.scau.pyx.ssp.entity.ReplyListInfo">
         SELECT
             T.id,
